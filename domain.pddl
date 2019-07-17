@@ -25,16 +25,6 @@
 
 
 (:functions ;todo: define numeric functions here
-    (massium)  ; currency of the game
-    (agent-available-capacity ?a - agent)  ; how much a truck can carry
-    (storage-available-capacity ?s - storage)  ;  available capacity of storage1
-    (item-acquired-agent ?i - item ?a - agent)  ; units of a specific item acquired by an agent
-    (item-acquired-storage ?i - item ?s - storage)  ; units of a specific item in a storage
-    (agent-latitude ?a - agent)  ; latitude of an agent
-    (agent-longitude ?a - agent)  ; longitude of an agent
-    (location-latitude ?l - location)  ; latitude of storage/workshop/resourcenode
-    (location-longitude ?l - location)  ; longitude of an storage storage/workshop/resourcenode
-    
 )
 
 )
