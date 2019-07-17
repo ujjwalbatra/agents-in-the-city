@@ -10,13 +10,26 @@
     workshop storage resourceNode - location
 )
 
+(:functions (agent-used-capacity ?a - agent))
+
 ; un-comment following line if constants are needed
 ;(:constants )
+
 
 (:predicates ;todo: define predicates here
     (item-in-resourceNode ?i - item ?rn - resourceNode) ; item i is in respource node rn
     (agent-at-location ?a - agent ?l - location)  ; agent is at location l
+    (capacity-increased)
 )
+
+(:action gather-item
+    :parameters (?a - agent ?i - item ?n - resourceNode)
+    :precondition (and (item-in-resourceNode ?i ?n)
+                (agent-at-location ?a ?n))
+    :effect (and 
+        (capacity-increased))
+)
+
 
 (:action goto
     :parameters (?a - agent ?loc1 - location ?loc2 - location)

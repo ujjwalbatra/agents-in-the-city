@@ -23,12 +23,14 @@
     (item-in-resourceNode i1 n8)
     (item-in-resourceNode i2 n9)
     (item-in-resourceNode i4 n10)
+    
+    (= (agent-used-capacity t1) 0) ; agent hasnt used it's capacity initially
 
     (agent-at-location t1 s0)
 )
 
 (:goal (and
-        (agent-at-location t1 w1)
+    (capacity-increased)
     ;todo: put the goal condition here
     )
 )
