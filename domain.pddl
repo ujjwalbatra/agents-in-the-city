@@ -5,7 +5,7 @@
 (:requirements :strips :fluents :typing :negative-preconditions :equality)
 
 (:types ; enumerate types and their hierarchy here, e.g. car truck bus - vehicle
-    truck motorcycle - agent
+    truck motorcycle drone - agent
     item
     workshop storage resourceNode - location
 )
@@ -14,10 +14,16 @@
 ;(:constants )
 
 (:predicates ;todo: define predicates here
+    (item-in-resourceNode ?i - item ?rn - resourceNode) ; item i is in respource node rn
+    (agent-at-location ?a - agent ?l - location)  ; agent is at location l
 )
 
-
-(:functions ;todo: define numeric functions here
+(:action goto
+    :parameters (?a - agent ?loc1 - location ?loc2 - location)
+    :precondition (and (agent-at-location ?a ?loc1))
+    :effect (and (agent-at-location ?a ?loc2)
+                (not (agent-at-location ?a ?loc2)))
 )
+
 
 )
