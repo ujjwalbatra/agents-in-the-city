@@ -10,6 +10,8 @@
     w0 w1 w2 w3 - workshop  ; 4 workshops to assemble items
     s0 s1 s2 s3 - storage  ; 4  storages to store the items
     n1 n2 n3 n4 n5 n6 n7 n8 n9 n10 - resourceNode  ; 10 resource nodes to acquire items
+
+    sh0 sh1 sh2 sh3 sh4 sh5 sh6 - shop
 )
 
 (:init
@@ -28,11 +30,11 @@
     
     (= (agent-used-capacity t1 i2) 0) ; agent hasnt used it's capacity initially
 
-    (agent-at-location t1 s0)
+    (agent-at-facility t1 s0)
 )
 
 (:goal (and
-    (item-in-storage i2 s0)
+    (job-complete s0 i2)
     ;todo: put the goal condition here
     )
 )
