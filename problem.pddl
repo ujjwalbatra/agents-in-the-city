@@ -27,14 +27,23 @@
     (item-in-resourceNode i1 n8)
     (item-in-resourceNode i2 n9)
     (item-in-resourceNode i4 n10)
+
+    (item-assembly-parts i9 i2) ; i2 is required to assemble i9
+    (item-assembly-parts i9 i3) ; i3 is required to assemble i9
+    
     
     (= (agent-used-capacity t1 i2) 0) ; agent hasnt used it's capacity initially
+    (= (agent-used-capacity t2 i2) 0) ; agent hasnt used it's capacity initially
 
     (agent-at-facility t1 s0)
+    (agent-at-facility t2 s0)
+    
 )
 
 (:goal (and
-    (job-complete s0 i2)
+    ;(job-complete s0 i9)
+    (agent-carrying-item t1 i9)
+    (agent-carrying-item t2 i9)
     ;todo: put the goal condition here
     )
 )

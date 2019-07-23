@@ -13,8 +13,8 @@
 
 (:functions (
     agent-used-capacity ?a - agent ?i - item)  ; agent has used x amount of capacity
-    (location-latitude)  ; latitude of location type object
-    (location-longitude)  ; longitude of location type object 
+    (location-latitude ?l - location) ; latitude of location type object
+    (location-longitude ?l - location) ; longitude of location type object 
 )
 
 ; un-comment following line if constants are needed
@@ -27,6 +27,9 @@
     (agent-carrying-item ?a - agent ?i - item)  ; agent is carrying item i
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
     (job-complete ?s - storage ?i - item)  ; job completion requires certain item(s) in a particular storage
+    
+    (item-assembly-parts ?i1 - item ?i2 - item)  ; i1 - item to be assembled, i2 - item required
+    (item-assembly-roles ?i - item ?a - agent)  ; i - item to be assembled, agents rewuired for assembly
 )
 
 ; take an item from agent and add it to the storage
@@ -54,6 +57,20 @@
 
 )
 
+(:action give
+    :parameters (?a1 ?a2 - agent ?f - facility ?i - item)
+    :precondition (and 
+            (agent-at-facility ?a1 ?f)
+            (agent-at-facility ?a2 ?f)
+            (agent-carrying-item ?a1 ?i)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?a1 ?i))
+        (agent-carrying-item ?a2 ?i)
+    )
+)
+
+
 
 ; item taken by an agent from a resource node
 (:action gather-item
@@ -69,11 +86,24 @@
 
 
 (:action goto
-    :parameters (?a - agent ?loc1 - facility ?loc2 - facility)
+    :parameters (?a - agent ?loc1 ?loc2 - facility)
     :precondition (and (agent-at-facility ?a ?loc1))
     :effect (and (agent-at-facility ?a ?loc2)
                 (not (agent-at-facility ?a ?loc1)))
 )
 
+; just comverting one type of item to another type for now
+(:action assemble
+    :parameters (?i1 ?i2 - item ?a - agent ?w - workshop)
+    :precondition (and 
+        (agent-carrying-item ?a ?i1)
+        (item-assembly-parts ?i2 ?i1)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?a ?i1))
+        (agent-carrying-item ?a ?i2)
+    )
+)
 
 )
