@@ -28,22 +28,56 @@
     (item-in-resourceNode i2 n9)
     (item-in-resourceNode i4 n10)
 
-    (item-assembly-parts i9 i2) ; i2 is required to assemble i9
-    (item-assembly-parts i9 i3) ; i3 is required to assemble i9
+    (item-require-part i9 i4)
+    (item-require-part i9 i1)
+
+    (= (agent-used-capacity t1 i0) 0)    
+    (= (agent-used-capacity t1 i1) 0) ; agent hasnt used it's capacity initially
+    (= (agent-used-capacity t1 i2) 0)
+    (= (agent-used-capacity t1 i3) 0)
+    (= (agent-used-capacity t1 i4) 0)
+    (= (agent-used-capacity t1 i5) 0)
+    (= (agent-used-capacity t1 i6) 0)
+    (= (agent-used-capacity t1 i7) 0)
+    (= (agent-used-capacity t1 i8) 0)
+    (= (agent-used-capacity t1 i9) 0)
+
+    (= (agent-used-capacity t2 i0) 0)    
+    (= (agent-used-capacity t2 i1) 0) ; agent hasnt used it's capacity initially
+    (= (agent-used-capacity t2 i2) 0)
+    (= (agent-used-capacity t2 i3) 0)
+    (= (agent-used-capacity t2 i4) 0)
+    (= (agent-used-capacity t2 i5) 0)
+    (= (agent-used-capacity t2 i6) 0)
+    (= (agent-used-capacity t2 i7) 0)
+    (= (agent-used-capacity t2 i8) 0)
+    (= (agent-used-capacity t2 i9) 0)
+
+    (= (agent-used-capacity mc1 i0) 0)
+    (= (agent-used-capacity mc1 i1) 0)
+    (= (agent-used-capacity mc1 i2) 0)
+    (= (agent-used-capacity mc1 i3) 0)
+    (= (agent-used-capacity mc1 i4) 0)
+    (= (agent-used-capacity mc1 i5) 0)
+    (= (agent-used-capacity mc1 i6) 0)
+    (= (agent-used-capacity mc1 i7) 0)
+    (= (agent-used-capacity mc1 i8) 0)
+    (= (agent-used-capacity mc1 i9) 0)
+
     
     
-    (= (agent-used-capacity t1 i2) 0) ; agent hasnt used it's capacity initially
-    (= (agent-used-capacity t2 i2) 0) ; agent hasnt used it's capacity initially
+
 
     (agent-at-facility t1 s0)
     (agent-at-facility t2 s0)
+    (agent-at-facility mc1 s2)
+
     
 )
 
 (:goal (and
     ;(job-complete s0 i9)
     (agent-carrying-item t1 i9)
-    (agent-carrying-item t2 i9)
     ;todo: put the goal condition here
     )
 )

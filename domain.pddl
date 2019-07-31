@@ -28,8 +28,8 @@
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
     (job-complete ?s - storage ?i - item)  ; job completion requires certain item(s) in a particular storage
     
-    (item-assembly-parts ?i1 - item ?i2 - item)  ; i1 - item to be assembled, i2 - item required
-    (item-assembly-roles ?i - item ?a - agent)  ; i - item to be assembled, agents rewuired for assembly
+    (item-require-part ?i1 - item ?i2 - item)  ; i1 - item to be assembled, i2 - item required
+    (item-require-role ?i - item ?a - agent)  ; i - item to be assembled, agents rewuired for assembly
 )
 
 ; take an item from agent and add it to the storage
@@ -42,7 +42,7 @@
     :effect (and 
         (not (agent-carrying-item ?a ?i))
         (item-in-storage ?i ?s)
-        (decrease (agent-used-capacity ?a ?i) 2)
+        (decrease (agent-used-capacity ?a ?i) 1)
     )
 )
 
@@ -67,13 +67,15 @@
     :effect (and 
         (not (agent-carrying-item ?a1 ?i))
         (agent-carrying-item ?a2 ?i)
+        (increase (agent-used-capacity ?a2 ?i) 1)
+        (decrease (agent-used-capacity ?a1 ?i) 1)
     )
 )
 
 
 
 ; item taken by an agent from a resource node
-(:action gather-item
+(:action gather
     :parameters (?a - agent ?i - item ?n - resourceNode)
     :precondition (and (item-in-resourceNode ?i ?n)
                 (agent-at-facility ?a ?n)
@@ -92,17 +94,24 @@
                 (not (agent-at-facility ?a ?loc1)))
 )
 
-; just comverting one type of item to another type for now
-(:action assemble
-    :parameters (?i1 ?i2 - item ?a - agent ?w - workshop)
+; just converting one type of item to another type for now
+(:action assemble-item9
+    :parameters (?i1 ?i4 ?i9 - item ?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (agent-carrying-item ?a ?i1)
-        (item-assembly-parts ?i2 ?i1)
-        (agent-at-facility ?a ?w)
+        (item-require-part ?i9 ?i4)
+        (item-require-part ?i9 ?i1)
+        (not (= ?i1 ?i4))
+        (agent-carrying-item ?t ?i1)
+        (agent-carrying-item ?m ?i4)
+        (agent-at-facility ?t ?w)
+        (agent-at-facility ?m ?w)
+      
     )
     :effect (and 
-        (not (agent-carrying-item ?a ?i1))
-        (agent-carrying-item ?a ?i2)
+        (not (agent-carrying-item ?t ?i1))
+        (not (agent-carrying-item ?m ?i4))
+
+        (agent-carrying-item ?t ?i9)
     )
 )
 
