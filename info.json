@@ -1,0 +1,223 @@
+{
+    "agents": {
+        "trucks": [
+            {
+                "name": "truck1"
+            },
+            {
+                "name": "truck2"
+            },
+            {
+                "name": "truck3"
+            },
+            {
+                "name": "truck4"
+            },
+            {
+                "name": "truck5"
+            },
+            {
+                "name": "truck6"
+            },
+            {
+                "name": "truck7"
+            },
+            {
+                "name": "truck8"
+            },
+            {
+                "name": "truck9"
+            },
+            {
+                "name": "truck10"
+            },
+            {
+                "name": "truck11"
+            },
+            {
+                "name": "truck12"
+            }
+        ],
+        "motorcycles": [
+            {
+                "name": "motorcycle1"
+            },
+            {
+                "name": "motorcycle2"
+            },
+            {
+                "name": "motorcycle3"
+            },
+            {
+                "name": "motorcycle4"
+            },
+            {
+                "name": "motorcycle5"
+            },
+            {
+                "name": "motorcycle6"
+            },
+            {
+                "name": "motorcycle7"
+            },
+            {
+                "name": "motorcycle8"
+            }
+        ],
+        "drones": [
+            {
+                "name": "drone1"
+            },
+            {
+                "name": "drone2"
+            },
+            {
+                "name": "drone3"
+            },
+            {
+                "name": "drone4"
+            }
+        ],
+        "cars": [
+            {
+                "name": "car1"
+            },
+            {
+                "name": "car2"
+            },
+            {
+                "name": "car3"
+            },
+            {
+                "name": "car4"
+            },
+            {
+                "name": "car5"
+            },
+            {
+                "name": "car6"
+            },
+            {
+                "name": "car7"
+            },
+            {
+                "name": "car8"
+            },
+            {
+                "name": "car9"
+            },
+            {
+                "name": "car10"
+            }
+        ]
+    },
+    "items": [
+        {
+            "name": "item0"
+        },
+        {
+            "name": "item1"
+        },
+        {
+            "name": "item2"
+        },
+        {
+            "name": "item3"
+        },
+        {
+            "name": "item4"
+        },
+        {
+            "name": "item5"
+        },
+        {
+            "name": "item6"
+        },
+        {
+            "name": "item7"
+        },
+        {
+            "name": "item8"
+        },
+        {
+            "name": "item9"
+        },
+        {
+            "name": "item10"
+        }
+    ],
+    "workshops": [
+        {
+            "name": "w0"
+        },
+        {
+            "name": "w1"
+        },
+        {
+            "name": "w2"
+        },
+        {
+            "name": "w3"
+        }
+    ],
+    "storages": [
+        {
+            "name": "storage0"
+        },
+        {
+            "name": "storage1"
+        },
+        {
+            "name": "storage2"
+        },
+        {
+            "name": "storage3"
+        }
+    ],
+    "resource_nodes": [
+        {
+            "name": "node0",
+            "item": "item0"
+        },
+        {
+            "name": "node1",
+            "item": "item2"
+        },
+        {
+            "name": "node2",
+            "item": "item1"
+        },
+        {
+            "name": "node3",
+            "item": "item4"
+        },
+        {
+            "name": "node4",
+            "item": "item3"
+        },
+        {
+            "name": "node5",
+            "item": "item1"
+        },
+        {
+            "name": "node6",
+            "item": "item3"
+        },
+        {
+            "name": "node7",
+            "item": "item1"
+        },
+        {
+            "name": "node8",
+            "item": "item1"
+        },
+        {
+            "name": "node9",
+            "item": "item2"
+        },
+        {
+            "name": "node10",
+            "item": "item4"
+        }
+    ]
+}

@@ -1,15 +1,48 @@
+;;!pre-parsing:{type: "nunjucks", data: "info.json"}
+
 (define (problem complete-jobs) (:domain agents-in-the-city)
 
 (:objects 
-    t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 - truck  ; there are 12 trucks
-    mc1 mc2 mc3 mc4 mc5 mc6 mc7 mc8 - motorcycle  ; there are 8 motorcycles
-    d1 d2 d3 d4 - drone  ; 4 drones
-    c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 - car  ; there are 10 cars
+    ; initialising all trucks
+    {% for truck in data.agents.trucks %}
+        {{ truck.name }} - truck 
+    {% endfor %}
 
-    i0 i1 i2 i3 i4 i5 i6 i7 i8 i9 i10 - item  ; there are 11 items
-    w0 w1 w2 w3 - workshop  ; 4 workshops to assemble items
-    s0 s1 s2 s3 - storage  ; 4  storages to store the items
-    n1 n2 n3 n4 n5 n6 n7 n8 n9 n10 - resourceNode  ; 10 resource nodes to acquire items
+    ; initialising all motorcycles
+    {% for motorcycle in data.agents.motorcycles %}
+        {{ motorcycle.name }} - motorcycle
+    {% endfor %}
+
+    ; initialising all drones
+    {% for drone in data.agents.drones %}
+        {{ drone.name }} - drone
+    {% endfor %}
+
+    ; initialising all cars
+    {% for car in data.agents.cars %}
+        {{ car.name }} - car
+    {% endfor %}
+
+    ; initialising all items
+    {% for item in data.items %}
+        {{ item.name }} - item
+    {% endfor %}
+
+    ; initialising all workshops
+    {% for workshop in data.workshops %}
+        {{ workshop.name }} - workshop
+    {% endfor %}
+
+    ; initialising all storages
+    {% for storage in data.storages %}
+        {{ storage.name }} - storage
+    {% endfor %}
+
+    ; initialising all resource nodes
+    {% for node in data.resource_nodes %}
+        {{ node.name }} - resourceNode
+    {% endfor %}
+
 
     sh0 sh1 sh2 sh3 sh4 sh5 sh6 - shop
 )
@@ -18,66 +51,60 @@
     ;todo: put the initial state's facts and numeric values here
 
     ; resourcenodes containing item
-    (item-in-resourceNode i1 n2)
-    (item-in-resourceNode i3 n3)
-    (item-in-resourceNode i4 n4)
-    (item-in-resourceNode i1 n5)
-    (item-in-resourceNode i3 n6)
-    (item-in-resourceNode i1 n7)
-    (item-in-resourceNode i1 n8)
-    (item-in-resourceNode i2 n9)
-    (item-in-resourceNode i4 n10)
-
-    (item-require-part i9 i4)
-    (item-require-part i9 i1)
-
-    (= (agent-used-capacity t1 i0) 0)    
-    (= (agent-used-capacity t1 i1) 0) ; agent hasnt used it's capacity initially
-    (= (agent-used-capacity t1 i2) 0)
-    (= (agent-used-capacity t1 i3) 0)
-    (= (agent-used-capacity t1 i4) 0)
-    (= (agent-used-capacity t1 i5) 0)
-    (= (agent-used-capacity t1 i6) 0)
-    (= (agent-used-capacity t1 i7) 0)
-    (= (agent-used-capacity t1 i8) 0)
-    (= (agent-used-capacity t1 i9) 0)
-
-    (= (agent-used-capacity t2 i0) 0)    
-    (= (agent-used-capacity t2 i1) 0) ; agent hasnt used it's capacity initially
-    (= (agent-used-capacity t2 i2) 0)
-    (= (agent-used-capacity t2 i3) 0)
-    (= (agent-used-capacity t2 i4) 0)
-    (= (agent-used-capacity t2 i5) 0)
-    (= (agent-used-capacity t2 i6) 0)
-    (= (agent-used-capacity t2 i7) 0)
-    (= (agent-used-capacity t2 i8) 0)
-    (= (agent-used-capacity t2 i9) 0)
-
-    (= (agent-used-capacity mc1 i0) 0)
-    (= (agent-used-capacity mc1 i1) 0)
-    (= (agent-used-capacity mc1 i2) 0)
-    (= (agent-used-capacity mc1 i3) 0)
-    (= (agent-used-capacity mc1 i4) 0)
-    (= (agent-used-capacity mc1 i5) 0)
-    (= (agent-used-capacity mc1 i6) 0)
-    (= (agent-used-capacity mc1 i7) 0)
-    (= (agent-used-capacity mc1 i8) 0)
-    (= (agent-used-capacity mc1 i9) 0)
-
-    
+    ; initialising all items in resource nodes
+    {% for node in data.resource_nodes %}
+        (item-in-resourceNode {{ node.item }} {{ node.name }})
+    {% endfor %}
     
 
+    (assembly-require-part item9 item4)  ; i9 requires i4 to be assembled
+    (assembly-require-part item9 item1)
+    (assembly-require-part item9 item0)
+    (assembly-require-part item9 item2)
+    (assembly-require-part item9 item3)
+    
+    ; specifying that an agent doesn't have any items
+    {% for truck in data.agents.trucks %}
+        {% for item in data.items %}
+            (= (agent-used-capacity {{ truck.name }} {{ item.name }}) 0)  
+        {% endfor %}
+    {% endfor %}
 
-    (agent-at-facility t1 s0)
-    (agent-at-facility t2 s0)
-    (agent-at-facility mc1 s2)
+    {% for motorcycle in data.agents.motorcycles %}
+        {% for item in data.items %}
+            (= (agent-used-capacity {{ motorcycle.name }} {{ item.name }}) 0)  
+        {% endfor %}
+    {% endfor %}
+
+    {% for drone in data.agents.drones %}
+        {% for item in data.items %}
+            (= (agent-used-capacity {{ drone.name }} {{ item.name }}) 0)  
+        {% endfor %} 
+    {% endfor %}
+
+    {% for car in data.agents.cars %}
+        {% for item in data.items %}
+            (= (agent-used-capacity {{ car.name }} {{ item.name }}) 0)
+        {% endfor %}
+    {% endfor %}
+       
+
+    ; initial location of the agents
+    (agent-at-facility truck1 storage0)
+    (agent-at-facility truck2 storage1)
+    (agent-at-facility truck3 storage2)
+    (agent-at-facility truck4 storage3)
+    
+
+    (agent-at-facility motorcycle1 storage2)
+    
 
     
 )
 
 (:goal (and
     ;(job-complete s0 i9)
-    (agent-carrying-item t1 i9)
+    (agent-carrying-item truck4 item9)
     ;todo: put the goal condition here
     )
 )

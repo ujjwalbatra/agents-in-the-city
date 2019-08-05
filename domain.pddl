@@ -28,7 +28,7 @@
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
     (job-complete ?s - storage ?i - item)  ; job completion requires certain item(s) in a particular storage
     
-    (item-require-part ?i1 - item ?i2 - item)  ; i1 - item to be assembled, i2 - item required
+    (assembly-require-part ?i1 - item ?i2 - item)  ; i1 - item to be assembled, i2 - item required
     (item-require-role ?i - item ?a - agent)  ; i - item to be assembled, agents rewuired for assembly
 )
 
@@ -46,7 +46,7 @@
     )
 )
 
-(:action job-complete
+(:action job_complete
     :parameters (?i - item ?s - storage)
     :precondition (and 
         (item-in-storage ?i ?s)    
@@ -57,15 +57,17 @@
 
 )
 
+; give from agent 1 to 2
 (:action give
     :parameters (?a1 ?a2 - agent ?f - facility ?i - item)
     :precondition (and 
+            (not (= ?a1 ?a2))
             (agent-at-facility ?a1 ?f)
             (agent-at-facility ?a2 ?f)
             (agent-carrying-item ?a1 ?i)
+            (> (agent-used-capacity ?a1 ?i) 0)
     )
     :effect (and 
-        (not (agent-carrying-item ?a1 ?i))
         (agent-carrying-item ?a2 ?i)
         (increase (agent-used-capacity ?a2 ?i) 1)
         (decrease (agent-used-capacity ?a1 ?i) 1)
@@ -89,29 +91,47 @@
 
 (:action goto
     :parameters (?a - agent ?loc1 ?loc2 - facility)
-    :precondition (and (agent-at-facility ?a ?loc1))
+    :precondition (and (agent-at-facility ?a ?loc1) (not (= ?loc1 ?loc2)))
     :effect (and (agent-at-facility ?a ?loc2)
                 (not (agent-at-facility ?a ?loc1)))
 )
 
 ; just converting one type of item to another type for now
-(:action assemble-item9
-    :parameters (?i1 ?i4 ?i9 - item ?t - truck ?m - motorcycle ?w - workshop)
+(:action assemble_i9
+    :parameters (?i1 ?i2 ?i3 ?i4 ?i5 - item ?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (item-require-part ?i9 ?i4)
-        (item-require-part ?i9 ?i1)
+        (assembly-require-part item9 ?i1) ; hard code this
+        (assembly-require-part item9 ?i2)
+        (assembly-require-part item9 ?i3)
+        (assembly-require-part item9 ?i4)
+        (assembly-require-part item9 ?i5)
+
+        (not (= ?i1 ?i2))
+        (not (= ?i1 ?i3))
         (not (= ?i1 ?i4))
+        (not (= ?i1 ?i5))
+        (not (= ?i2 ?i3))
+        (not (= ?i2 ?i4))
+        (not (= ?i2 ?i5))
+        (not (= ?i3 ?i4))
+        (not (= ?i3 ?i5))
+        (not (= ?i4 ?i5))
+
         (agent-carrying-item ?t ?i1)
+        (agent-carrying-item ?t ?i2)
+        (agent-carrying-item ?m ?i3)
         (agent-carrying-item ?m ?i4)
+        (agent-carrying-item ?m ?i5)
+
         (agent-at-facility ?t ?w)
         (agent-at-facility ?m ?w)
       
     )
     :effect (and 
         (not (agent-carrying-item ?t ?i1))
-        (not (agent-carrying-item ?m ?i4))
+        (not (agent-carrying-item ?m ?i1))
 
-        (agent-carrying-item ?t ?i9)
+        (agent-carrying-item ?t item9)
     )
 )
 
