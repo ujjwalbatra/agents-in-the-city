@@ -86,11 +86,7 @@
         (not (agent-carrying-item ?a1 item1))
         (not (agent-carrying-item ?a2 item4))
         
-        (is_assembling ?c item5 ?w)
-
-        (is_assisting_assemble ?d item5 ?w)
-        (is_assisting_assemble ?a1 item5 ?w)
-        (is_assisting_assemble ?a2 item5 ?w)
+        (agent-carrying-item ?c item5)      
     )
 )
 
@@ -110,33 +106,9 @@
         (not (agent-carrying-item ?a1 item1))
         (not (agent-carrying-item ?a2 item4))
         
-        (is_assembling ?d item5 ?w)
-
-        (is_assisting_assemble ?c item5 ?w)
-        (is_assisting_assemble ?a1 item5 ?w)
-        (is_assisting_assemble ?a2 item5 ?w)
+        (agent-carrying-item ?d item5)
     )
 )
-
-(:action assist_assmble_i5
-    :parameters (?a1 ?a2 ?a3 ?a4 - agent ?w - workshop)
-    :precondition (and 
-        (is_assembling ?a1 item5 ?w)
-
-        (is_assisting_assemble ?a2 item5 ?w)
-        (is_assisting_assemble ?a3 item5 ?w)
-        (is_assisting_assemble ?a4 item5 ?w)
-    )
-    :effect (and 
-        (agent-carrying-item ?a1 item5)
-
-        (not (is_assembling ?a1 item5 ?w))
-        (not (is_assisting_assemble ?a2 item5 ?w))
-        (not (is_assisting_assemble ?a3 item5 ?w))
-        (not (is_assisting_assemble ?a4 item5 ?w))
-    )
-)
-
 
 
 (:action assemble_i6
