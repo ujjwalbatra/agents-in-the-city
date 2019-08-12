@@ -24,14 +24,27 @@
     (is_assisting_assemble ?a - agent ?i - item ?w - workshop)
 )
 
+(:action give
+    :parameters (?a1 ?a2 - agent ?i - item ?f - facility)
+    :precondition (and 
+        (agent-carrying-item ?a1 ?i)
+        (agent-at-facility ?a1 ?f)
+        (agent-at-facility ?a2 ?f)
+        (not (agent-carrying-item ?a1 ?i))
+    )
+    :effect (and 
+    (not (agent-carrying-item ?a1 ?i))
+    (agent-carrying-item ?a2 ?i)
+    )
+)
 
 
 ; take an item from agent and add it to the storage
 (:action store
     :parameters (?a - agent ?s - storage ?i - item)
     :precondition (and 
-                (agent-carrying-item ?a ?i)
-                (agent-at-facility ?a ?s)
+        (agent-carrying-item ?a ?i)
+        (agent-at-facility ?a ?s)
     )
     :effect (and 
         (not (agent-carrying-item ?a ?i))
