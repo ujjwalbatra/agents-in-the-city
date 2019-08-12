@@ -8,13 +8,6 @@
     truck motorcycle drone car - agent
     item
     workshop storage resourceNode shop - facility
-    agent facility - location  ; agent and facitlity are of type location to have a latitude and longitude
-)
-
-(:functions (
-    agent-used-capacity ?a - agent ?i - item)  ; agent has used x amount of capacity
-    (location-latitude ?l - location) ; latitude of location type object
-    (location-longitude ?l - location) ; longitude of location type object 
 )
 
 ; un-comment following line if constants are needed
@@ -27,10 +20,11 @@
     (agent-carrying-item ?a - agent ?i - item)  ; agent is carrying item i
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
     (job-complete ?s - storage ?i - item)  ; job completion requires certain item(s) in a particular storage
-    
-    (assembly-require-part ?i1 - item ?i2 - item)  ; i1 - item to be assembled, i2 - item required
-    (item-require-role ?i - item ?a - agent)  ; i - item to be assembled, agents rewuired for assembly
+    (is_assembling ?a - agent ?i - item ?w - workshop)
+    (is_assisting_assemble ?a - agent ?i - item ?w - workshop)
 )
+
+
 
 ; take an item from agent and add it to the storage
 (:action store
@@ -42,7 +36,6 @@
     :effect (and 
         (not (agent-carrying-item ?a ?i))
         (item-in-storage ?i ?s)
-        (decrease (agent-used-capacity ?a ?i) 1)
     )
 )
 
@@ -57,24 +50,6 @@
 
 )
 
-; give from agent 1 to 2
-(:action give
-    :parameters (?a1 ?a2 - agent ?f - facility ?i - item)
-    :precondition (and 
-            (not (= ?a1 ?a2))
-            (agent-at-facility ?a1 ?f)
-            (agent-at-facility ?a2 ?f)
-            (agent-carrying-item ?a1 ?i)
-            (> (agent-used-capacity ?a1 ?i) 0)
-    )
-    :effect (and 
-        (agent-carrying-item ?a2 ?i)
-        (increase (agent-used-capacity ?a2 ?i) 1)
-        (decrease (agent-used-capacity ?a1 ?i) 1)
-    )
-)
-
-
 
 ; item taken by an agent from a resource node
 (:action gather
@@ -83,7 +58,6 @@
                 (agent-at-facility ?a ?n)
     )
     :effect (and 
-        (increase (agent-used-capacity ?a ?i) 2)
         (agent-carrying-item ?a ?i)
     )
 )
@@ -96,42 +70,281 @@
                 (not (agent-at-facility ?a ?loc1)))
 )
 
+(:action assemble_i5_car
+    :parameters ( ?c - car ?d - drone ?a1 ?a2 - agent ?w - workshop)
+    :precondition (and 
+    
+        (agent-carrying-item ?a1 item1)
+        (agent-carrying-item ?a2 item4)
+
+        (agent-at-facility ?d ?w)
+        (agent-at-facility ?c ?w)
+        (agent-at-facility ?a1 ?w)
+        (agent-at-facility ?a2 ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?a1 item1))
+        (not (agent-carrying-item ?a2 item4))
+        
+        (is_assembling ?c item5 ?w)
+
+        (is_assisting_assemble ?d item5 ?w)
+        (is_assisting_assemble ?a1 item5 ?w)
+        (is_assisting_assemble ?a2 item5 ?w)
+    )
+)
+
+(:action assemble_i5_drone
+    :parameters ( ?c - car ?d - drone ?a1 ?a2 - agent ?w - workshop)
+    :precondition (and 
+    
+        (agent-carrying-item ?a1 item1)
+        (agent-carrying-item ?a2 item4)
+
+        (agent-at-facility ?d ?w)
+        (agent-at-facility ?c ?w)
+        (agent-at-facility ?a1 ?w)
+        (agent-at-facility ?a2 ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?a1 item1))
+        (not (agent-carrying-item ?a2 item4))
+        
+        (is_assembling ?d item5 ?w)
+
+        (is_assisting_assemble ?c item5 ?w)
+        (is_assisting_assemble ?a1 item5 ?w)
+        (is_assisting_assemble ?a2 item5 ?w)
+    )
+)
+
+(:action assist_assmble_i5
+    :parameters (?a1 ?a2 ?a3 ?a4 - agent ?w - workshop)
+    :precondition (and 
+        (is_assembling ?a1 item5 ?w)
+
+        (is_assisting_assemble ?a2 item5 ?w)
+        (is_assisting_assemble ?a3 item5 ?w)
+        (is_assisting_assemble ?a4 item5 ?w)
+    )
+    :effect (and 
+        (agent-carrying-item ?a1 item5)
+
+        (not (is_assembling ?a1 item5 ?w))
+        (not (is_assisting_assemble ?a2 item5 ?w))
+        (not (is_assisting_assemble ?a3 item5 ?w))
+        (not (is_assisting_assemble ?a4 item5 ?w))
+    )
+)
+
+
+
+(:action assemble_i6
+    :parameters (?t - truck ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (or (agent-carrying-item ?m item0)
+            (agent-carrying-item ?t item0)
+        )
+        
+        (or (agent-carrying-item ?t item1)
+            (agent-carrying-item ?m item1)
+        )
+        
+        (or (agent-carrying-item ?t item2)
+            (agent-carrying-item ?m item2)
+        )
+    
+        (or (agent-carrying-item ?t item3)
+            (agent-carrying-item ?m item3)
+        )
+        
+        (or (agent-carrying-item ?t item4)
+            (agent-carrying-item ?m item4)
+        )
+
+        (agent-at-facility ?t ?w)
+        (agent-at-facility ?m ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?m item0))
+        (not (agent-carrying-item ?t item0))
+        
+        (not (agent-carrying-item ?m item1))
+        (not (agent-carrying-item ?t item1))
+       
+        (not (agent-carrying-item ?m item2))
+        (not (agent-carrying-item ?t item2))
+    
+        (not (agent-carrying-item ?m item3))
+        (not (agent-carrying-item ?t item3))
+        
+        (not (agent-carrying-item ?m item4))
+        (not (agent-carrying-item ?t item4))
+
+        (agent-carrying-item ?t item6)
+        (agent-carrying-item ?m item6)
+    )
+)
+
+
+(:action assemble_i7
+    :parameters ( ?c - car ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (or (agent-carrying-item ?m item0)
+            (agent-carrying-item ?c item0)
+        )
+        
+        (or (agent-carrying-item ?c item1)
+            (agent-carrying-item ?m item1)
+        )
+        
+        (or (agent-carrying-item ?c item2)
+            (agent-carrying-item ?m item2)
+        )
+    
+        (or (agent-carrying-item ?c item3)
+            (agent-carrying-item ?m item3)
+        )
+        
+        (or (agent-carrying-item ?c item4)
+            (agent-carrying-item ?m item4)
+        )
+
+
+        (agent-at-facility ?c ?w)
+        (agent-at-facility ?m ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?m item0))
+        (not (agent-carrying-item ?c item0))
+        
+        (not (agent-carrying-item ?m item1))
+        (not (agent-carrying-item ?c item1))
+       
+        (not (agent-carrying-item ?c item2))
+        (not (agent-carrying-item ?m item2))
+    
+        (not (agent-carrying-item ?c item3))
+        (not (agent-carrying-item ?m item3))
+        
+        (not (agent-carrying-item ?c item4))
+        (not (agent-carrying-item ?m item4))
+
+        (agent-carrying-item ?c item7)
+        (agent-carrying-item ?m item7)
+    )
+)
+
+
+(:action assemble_i8
+    :parameters ( ?c - car ?d - drone ?w - workshop)
+    :precondition (and 
+        (or (agent-carrying-item ?d item0)
+            (agent-carrying-item ?c item0)
+        )
+        
+        (or (agent-carrying-item ?d item4)
+            (agent-carrying-item ?c item4)
+        )
+
+        (agent-at-facility ?d ?w)
+        (agent-at-facility ?c ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?d item0))
+        (not (agent-carrying-item ?c item0))
+        
+        (not (agent-carrying-item ?d item4))
+        (not (agent-carrying-item ?c item4))
+
+        (agent-carrying-item ?c item8)
+        (agent-carrying-item ?d item8)
+    )
+)
+
+
 ; just converting one type of item to another type for now
 (:action assemble_i9
-    :parameters (?i1 ?i2 ?i3 ?i4 ?i5 - item ?t - truck ?m - motorcycle ?w - workshop)
+    :parameters (?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (assembly-require-part item9 ?i1) ; hard code this
-        (assembly-require-part item9 ?i2)
-        (assembly-require-part item9 ?i3)
-        (assembly-require-part item9 ?i4)
-        (assembly-require-part item9 ?i5)
 
-        (not (= ?i1 ?i2))
-        (not (= ?i1 ?i3))
-        (not (= ?i1 ?i4))
-        (not (= ?i1 ?i5))
-        (not (= ?i2 ?i3))
-        (not (= ?i2 ?i4))
-        (not (= ?i2 ?i5))
-        (not (= ?i3 ?i4))
-        (not (= ?i3 ?i5))
-        (not (= ?i4 ?i5))
+        (or (agent-carrying-item ?m item0)
+            (agent-carrying-item ?t item0)
+        )
+        
+        (or (agent-carrying-item ?t item1)
+            (agent-carrying-item ?m item1)
+        )
+        
+        (or (agent-carrying-item ?t item6)
+            (agent-carrying-item ?m item6)
+        )
+    
+        (or (agent-carrying-item ?t item7)
+            (agent-carrying-item ?m item7)
+        )
+        
+        (or (agent-carrying-item ?t item4)
+            (agent-carrying-item ?m item4)
+        )
 
-        (agent-carrying-item ?t ?i1)
-        (agent-carrying-item ?t ?i2)
-        (agent-carrying-item ?m ?i3)
-        (agent-carrying-item ?m ?i4)
-        (agent-carrying-item ?m ?i5)
 
         (agent-at-facility ?t ?w)
         (agent-at-facility ?m ?w)
       
     )
     :effect (and 
-        (not (agent-carrying-item ?t ?i1))
-        (not (agent-carrying-item ?m ?i1))
+        (not (agent-carrying-item ?m item0))
+        (not (agent-carrying-item ?t item0))
+        
+        (not (agent-carrying-item ?m item1))
+        (not (agent-carrying-item ?t item1))
+       
+        (not (agent-carrying-item ?t item6))
+        (not (agent-carrying-item ?m item6))
+    
+        (not (agent-carrying-item ?t item7))
+        (not (agent-carrying-item ?m item7))
+        
+        (not (agent-carrying-item ?t item4))
+        (not (agent-carrying-item ?m item4))
 
         (agent-carrying-item ?t item9)
+        (agent-carrying-item ?m item9)
+    )
+)
+
+(:action assemble_i10
+    :parameters ( ?c - car ?m - motorcycle ?w - workshop)
+    :precondition (and 
+             
+        (or (agent-carrying-item ?c item1)
+            (agent-carrying-item ?m item1)
+        )
+        
+        (or (agent-carrying-item ?c item5)
+            (agent-carrying-item ?m item5)
+        )
+    
+        (or (agent-carrying-item ?c item6)
+            (agent-carrying-item ?m item6)
+        )
+        
+        (agent-at-facility ?c ?w)
+        (agent-at-facility ?m ?w)
+    )
+    :effect (and 
+        (not (agent-carrying-item ?m item1))
+        (not (agent-carrying-item ?c item1))
+       
+        (not (agent-carrying-item ?c item5))
+        (not (agent-carrying-item ?m item5))
+    
+        (not (agent-carrying-item ?c item6))
+        (not (agent-carrying-item ?m item6))
+
+        (agent-carrying-item ?c item10)
+        (agent-carrying-item ?m item10)
     )
 )
 

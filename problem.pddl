@@ -4,45 +4,28 @@
 
 (:objects 
     ; initialising all trucks
-    {% for truck in data.agents.trucks %}
-        {{ truck.name }} - truck 
-    {% endfor %}
+    truck1 truck2 truck3 truck4 truck5 truck6 truck7 truck8 truck9 truck10 truck11 truck12 - truck 
 
-    ; initialising all motorcycles
-    {% for motorcycle in data.agents.motorcycles %}
-        {{ motorcycle.name }} - motorcycle
-    {% endfor %}
+    ; initialising all motorcycles    
+    motorcycle1 motorcycle2 motorcycle3 motorcycle4 motorcycle5 motorcycle6 - motorcycle
 
     ; initialising all drones
-    {% for drone in data.agents.drones %}
-        {{ drone.name }} - drone
-    {% endfor %}
+    drone1 drone2 drone3 drone3 drone4 - drone
 
     ; initialising all cars
-    {% for car in data.agents.cars %}
-        {{ car.name }} - car
-    {% endfor %}
+    car1 car2 car3 car4 car5 car6 car7 car8 car9 car10 - car
 
     ; initialising all items
-    {% for item in data.items %}
-        {{ item.name }} - item
-    {% endfor %}
+    item0 item1 item2 item3 item4 item5 item6 item7 item8 item9 item10 - item
 
     ; initialising all workshops
-    {% for workshop in data.workshops %}
-        {{ workshop.name }} - workshop
-    {% endfor %}
+    workshop0 workshop1 workshop2 workshop3 - workshop
 
     ; initialising all storages
-    {% for storage in data.storages %}
-        {{ storage.name }} - storage
-    {% endfor %}
+    storage0 storage1 storage2 storage3 storage4 - storage
 
     ; initialising all resource nodes
-    {% for node in data.resource_nodes %}
-        {{ node.name }} - resourceNode
-    {% endfor %}
-
+    node0 node1 node2 node3 node4 node5 node6 node7 node8 node9 node10 - resourceNode
 
     sh0 sh1 sh2 sh3 sh4 sh5 sh6 - shop
 )
@@ -51,43 +34,18 @@
     ;todo: put the initial state's facts and numeric values here
 
     ; resourcenodes containing item
-    ; initialising all items in resource nodes
-    {% for node in data.resource_nodes %}
-        (item-in-resourceNode {{ node.item }} {{ node.name }})
-    {% endfor %}
-    
-
-    (assembly-require-part item9 item4)  ; i9 requires i4 to be assembled
-    (assembly-require-part item9 item1)
-    (assembly-require-part item9 item0)
-    (assembly-require-part item9 item2)
-    (assembly-require-part item9 item3)
-    
-    ; specifying that an agent doesn't have any items
-    {% for truck in data.agents.trucks %}
-        {% for item in data.items %}
-            (= (agent-used-capacity {{ truck.name }} {{ item.name }}) 0)  
-        {% endfor %}
-    {% endfor %}
-
-    {% for motorcycle in data.agents.motorcycles %}
-        {% for item in data.items %}
-            (= (agent-used-capacity {{ motorcycle.name }} {{ item.name }}) 0)  
-        {% endfor %}
-    {% endfor %}
-
-    {% for drone in data.agents.drones %}
-        {% for item in data.items %}
-            (= (agent-used-capacity {{ drone.name }} {{ item.name }}) 0)  
-        {% endfor %} 
-    {% endfor %}
-
-    {% for car in data.agents.cars %}
-        {% for item in data.items %}
-            (= (agent-used-capacity {{ car.name }} {{ item.name }}) 0)
-        {% endfor %}
-    {% endfor %}
-       
+    ;; initialising all items in resource nodes
+    (item-in-resourceNode item0 node0)
+    (item-in-resourceNode item2 node1)
+    (item-in-resourceNode item1 node2)
+    (item-in-resourceNode item4 node3)
+    (item-in-resourceNode item3 node4)
+    (item-in-resourceNode item1 node5)
+    (item-in-resourceNode item3 node6)
+    (item-in-resourceNode item1 node7)
+    (item-in-resourceNode item1 node8)
+    (item-in-resourceNode item2 node9)
+    (item-in-resourceNode item4 node10)
 
     ; initial location of the agents
     (agent-at-facility truck1 storage0)
@@ -96,15 +54,25 @@
     (agent-at-facility truck4 storage3)
     
 
-    (agent-at-facility motorcycle1 storage2)
-    
+    (agent-at-facility motorcycle1 storage0)
+    (agent-at-facility motorcycle2 storage1)
+    (agent-at-facility motorcycle3 storage2)
+    (agent-at-facility motorcycle4 storage3)
 
-    
+    (agent-at-facility car1 storage0)
+    (agent-at-facility car2 storage1)
+    (agent-at-facility car3 storage2)
+    (agent-at-facility car4 storage3)
+
+    (agent-at-facility drone1 storage0)
+    (agent-at-facility drone2 storage1)
+    (agent-at-facility drone3 storage2)
+    (agent-at-facility drone4 storage3)
 )
 
 (:goal (and
     ;(job-complete s0 i9)
-    (agent-carrying-item truck4 item9)
+    (agent-carrying-item car1 item5)
     ;todo: put the goal condition here
     )
 )
