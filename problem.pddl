@@ -10,7 +10,7 @@
     motorcycle1 motorcycle2 motorcycle3 motorcycle4 motorcycle5 motorcycle6 - motorcycle
 
     ; initialising all drones
-    drone1 drone2 drone3 drone3 drone4 - drone
+    drone1 drone2 drone3 drone4 - drone
 
     ; initialising all cars
     car1 car2 car3 car4 car5 car6 car7 car8 car9 car10 - car
@@ -52,17 +52,32 @@
     (agent-at-facility truck2 storage1)
     (agent-at-facility truck3 storage2)
     (agent-at-facility truck4 storage3)
-    
+    (agent-at-facility truck5 storage0)
+    (agent-at-facility truck6 storage1)
+    (agent-at-facility truck7 storage2)
+    (agent-at-facility truck8 storage3)
+    (agent-at-facility truck9 storage0)
+    (agent-at-facility truck10 storage1)
+    (agent-at-facility truck11 storage2)
+    (agent-at-facility truck12 storage3)
 
     (agent-at-facility motorcycle1 storage0)
     (agent-at-facility motorcycle2 storage1)
     (agent-at-facility motorcycle3 storage2)
     (agent-at-facility motorcycle4 storage3)
+    (agent-at-facility motorcycle5 storage2)
+    (agent-at-facility motorcycle6 storage3)
 
     (agent-at-facility car1 storage0)
     (agent-at-facility car2 storage1)
     (agent-at-facility car3 storage2)
     (agent-at-facility car4 storage3)
+    (agent-at-facility car5 storage0)
+    (agent-at-facility car6 storage1)
+    (agent-at-facility car7 storage2)
+    (agent-at-facility car8 storage3)
+    (agent-at-facility car9 storage0)
+    (agent-at-facility car10 storage1)
 
     (agent-at-facility drone1 storage0)
     (agent-at-facility drone2 storage1)
