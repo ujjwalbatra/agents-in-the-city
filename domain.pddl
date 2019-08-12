@@ -30,7 +30,7 @@
         (agent-carrying-item ?a1 ?i)
         (agent-at-facility ?a1 ?f)
         (agent-at-facility ?a2 ?f)
-        (not (agent-carrying-item ?a1 ?i))
+        (not (agent-carrying-item ?a2 ?i))
     )
     :effect (and 
     (not (agent-carrying-item ?a1 ?i))
