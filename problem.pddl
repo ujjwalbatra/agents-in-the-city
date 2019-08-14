@@ -71,7 +71,7 @@
 
 (:goal (and
     ;(job-complete s0 i9)
-    (agent-carrying-item car1 item5)
+    (agent-carrying-item truck1 item6)
     ;todo: put the goal condition here
     )
 )
