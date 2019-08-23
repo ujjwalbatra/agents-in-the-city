@@ -109,11 +109,7 @@
 )
 
 (:goal (and
-    ;(job-complete s0 i9)
-    (agent-carrying-item drone1 item5)
-    ;(item-assembled item5)
-    ;(item-in-storage item5 storage0)
-    ;todo: put the goal condition here
+        (agent-carrying-item drone1 item5)
     )
 )
 

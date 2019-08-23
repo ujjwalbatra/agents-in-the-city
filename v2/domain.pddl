@@ -211,7 +211,7 @@
         (not (workshop-allocated ?w item5))
         (not (workshop-busy ?w))
 
-        (assembly-procedure-complete ?i)
+        (assembly-procedure-complete item5)
     )
 )
 
