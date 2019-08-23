@@ -82,7 +82,7 @@
 ; finalise the workshop for assembly of item 5
 (:action prep_assemble_item5_finalise_workshop
     :parameters (?w - workshop)
-    :precondition (and (not (workshop-busy ?w))
+    :precondition (and (not (workshop-busy ?w)))
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item5)
@@ -115,7 +115,7 @@
         (agent-at-facility ?a ?w)
     )
     :effect (and 
-        (item-arranged-for-assembly item1 item5)
+        (item-arranged-for-assembly item4 item5)
         (agent-busy ?a)
         (agent-commited ?a item5) 
     )
