@@ -28,6 +28,7 @@
     (item-assembled ?i - item)
     (assemble-main-guy ?a - agent ?i - item) ; a - the agent who gets the item, i - item being assembled
     (assembly-agents-released ?i - item) ; i - item being assembled
+    (assembly-procedure-complete ?i - item) ;  - item that got assembled and everythong is complete
 
 )
 
@@ -125,7 +126,7 @@
 (:action prep_assemble_item5_arrange_roles
     :parameters (?c - car ?d - drone ?w - workshop)
     :precondition (and 
-        (or  (agent-commited ?c item5) (not (agent-busy ?c)))
+        (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
         (workshop-allocated ?w item5)
         (item-arranged-for-assembly item1 item5)
@@ -187,14 +188,13 @@
 
 
 (:action post_assemble_i5_freeup_everything
-    :parameters (?c - car ?d - drone ?a - agent ?w - workshop)
+    :parameters (?c - car ?d - drone ?w - workshop)
     :precondition (and 
         (assembly-agents-released item5)
         (item-assembled item5)
         (required-roles-arranged-for-assembly item5 ?w)
         (or (agent-commited ?c item5) (agent-commited ?d item5))
         (workshop-allocated ?w item5)
-        (assemble-main-guy ?a item5)
     )
     :effect (and 
         (not (assembly-agents-released item5))
@@ -211,9 +211,20 @@
         (not (workshop-allocated ?w item5))
         (not (workshop-busy ?w))
 
-        (agent-carrying-item ?a item5)
+        (assembly-procedure-complete ?i)
     )
 )
+
+(:action release_assembled_item5
+    :parameters (?a - agent)
+    :precondition (and (assembly-procedure-complete item5))
+    :effect (and 
+        (assemble-main-guy ?a item5)
+        (agent-carrying-item ?a item5)
+        (not (assembly-procedure-complete item5))
+    )
+)
+
 
 
 
