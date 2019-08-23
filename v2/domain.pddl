@@ -26,6 +26,9 @@
     (item-arranged-for-assembly ?i1 ?i2 - item) ; i1 - item required, i2 - item being assembled
     (required-roles-arranged-for-assembly ?i - item ?w - workshop) ; i - item to be assembled, w - workshop at which required roles are present
     (item-assembled ?i - item)
+    (assemble-main-guy ?a - agent ?i - item) ; a - the agent who gets the item, i - item being assembled
+    (assembly-agents-released ?i - item) ; i - item being assembled
+
 )
 
 (:action give
@@ -142,8 +145,8 @@
         (required-roles-arranged-for-assembly item5 ?w)   
     )
     :effect (and 
-        (agent-carrying-item ?c item5)
         (item-assembled item5)    
+        (assemble-main-guy ?c item5)
     )
 )
 
@@ -156,8 +159,8 @@
         (required-roles-arranged-for-assembly item5 ?w)   
     )
     :effect (and 
-        (agent-carrying-item ?d item5)
-        (item-assembled item5)       
+        (item-assembled item5)     
+        (assemble-main-guy ?d item5)  
     )
 )
 
@@ -178,27 +181,37 @@
         (not (agent-carrying-item ?a2 item1))
         (not (agent-commited ?a1 item5))
         (not (agent-commited ?a2 item5))
+        (assembly-agents-released item5)
     )
 )
 
 
 (:action post_assemble_i5_freeup_everything
-    :parameters (?c - car ?d - drone ?w - workshop)
+    :parameters (?c - car ?d - drone ?a - agent ?w - workshop)
     :precondition (and 
+        (assembly-agents-released item5)
         (item-assembled item5)
         (required-roles-arranged-for-assembly item5 ?w)
         (or (agent-commited ?c item5) (agent-commited ?d item5))
         (workshop-allocated ?w item5)
+        (assemble-main-guy ?a item5)
     )
     :effect (and 
+        (not (assembly-agents-released item5))
+        
         (not (item-assembled item5))
+        
         (not (agent-commited ?c item5))
         (not (agent-commited ?d item5))
+        
         (not (agent-busy ?c))
         (not (agent-busy ?d))
+        
         (not (required-roles-arranged-for-assembly item5 ?w))
         (not (workshop-allocated ?w item5))
         (not (workshop-busy ?w))
+
+        (agent-carrying-item ?a item5)
     )
 )
 
