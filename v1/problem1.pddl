@@ -1,5 +1,3 @@
-;;!pre-parsing:{type: "nunjucks", data: "info.json"}
-
 (define (problem complete-jobs) (:domain agents-in-the-city)
 
 (:objects 
