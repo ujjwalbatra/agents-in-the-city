@@ -241,13 +241,13 @@
 
 ; item(item6, 5, roles([truck, motorcycle]), parts([item2, item3, item0, item1, item4])).
 
-; finalise the workshop for assembly of item 5
+; finalise the workshop for assembly of item 6
 (:action prep_assemble_item6_finalise_workshop
     :parameters (?w - workshop)
     :precondition (and (not (workshop-busy ?w)))
     :effect (and 
         (workshop-busy ?w)
-        (workshop-allocated ?w item5)
+        (workshop-allocated ?w item6)
     )
 )
 
@@ -336,9 +336,9 @@
 (:action prep_assemble_item6_arrange_roles
     :parameters (?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (or (agent-commited ?t item5) (not (agent-busy ?t)))
-        (or (agent-commited ?m item5) (not (agent-busy ?m)))
-        (workshop-allocated ?w item5)
+        (or (agent-commited ?t item6) (not (agent-busy ?t)))
+        (or (agent-commited ?m item6) (not (agent-busy ?m)))
+        (workshop-allocated ?w item6)
 
         (agent-at-facility ?t ?w)
         (agent-at-facility ?m ?w)
