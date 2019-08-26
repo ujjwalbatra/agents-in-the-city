@@ -142,7 +142,7 @@
 )
 
 (:action assemble_i5_resources_aquired
-    :parameters ()
+    :parameters (?w - workshop)
     :precondition (and 
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
@@ -359,7 +359,7 @@
 )
 
 (:action assemble_i6_resources_aquired
-    :parameters ()
+    :parameters ((?w - workshop))
     :precondition (and 
         (item-arranged-for-assembly item0 item6)
         (item-arranged-for-assembly item1 item6)
@@ -628,7 +628,7 @@
 )
 
 (:action assemble_i7_resources_aquired
-    :parameters ()
+    :parameters ((?w - workshop))
     :precondition (and 
         (item-arranged-for-assembly item0 item7)
         (item-arranged-for-assembly item1 item7)
