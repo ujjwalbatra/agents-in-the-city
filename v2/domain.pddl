@@ -93,7 +93,10 @@
 ; finalise the workshop for assembly of item 5
 (:action prep_assemble_item5_finalise_workshop
     :parameters (?w - workshop)
-    :precondition (and (not (workshop-busy ?w)))
+    :precondition (and 
+        (not (workshop-busy ?w))
+        (not (assembly-lock item5))
+    )
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item5)
@@ -106,6 +109,7 @@
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
         (workshop-allocated ?w item5)
+        (not (assembly-lock item5))
         (agent-carrying-item ?a item1)
         (agent-at-facility ?a ?w)
     )
@@ -122,6 +126,7 @@
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
         (workshop-allocated ?w item5)
+        (not (assembly-lock item5))
         (agent-carrying-item ?a item4)
         (agent-at-facility ?a ?w)
     )
@@ -138,7 +143,8 @@
     :precondition (and 
         (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
-        
+        (not (assembly-lock item5))
+   
         (workshop-allocated ?w item5)
    
         (agent-at-facility ?c ?w)
@@ -273,7 +279,10 @@
 ; finalise the workshop for assembly of item 6
 (:action prep_assemble_item6_finalise_workshop
     :parameters (?w - workshop)
-    :precondition (and (not (workshop-busy ?w)))
+    :precondition (and 
+        (not (workshop-busy ?w))
+        (not (assembly-lock item6))
+    )
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item6)
@@ -286,6 +295,7 @@
     :precondition (and 
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
+        (not (assembly-lock item6))
         (agent-carrying-item ?a item0)
         (agent-at-facility ?a ?w)
     )
@@ -302,6 +312,7 @@
     :precondition (and 
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
+        (not (assembly-lock item6))
         (agent-carrying-item ?a item1)
         (agent-at-facility ?a ?w)
     )
@@ -316,6 +327,7 @@
 (:action prep_assemble_item6_arrange_item2
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item6))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
         (agent-carrying-item ?a item2)
@@ -333,6 +345,7 @@
 (:action prep_assemble_item6_arrange_item3
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item6))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
         (agent-carrying-item ?a item3)
@@ -349,6 +362,7 @@
 (:action prep_assemble_item6_arrange_item4
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item6))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
         (agent-carrying-item ?a item4)
@@ -365,6 +379,7 @@
 (:action prep_assemble_item6_arrange_roles
     :parameters (?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item6))
         (or (agent-commited ?t item6) (not (agent-busy ?t)))
         (or (agent-commited ?m item6) (not (agent-busy ?m)))
        
@@ -564,7 +579,10 @@
 ; finalise the workshop for assembly of item 7
 (:action prep_assemble_item7_finalise_workshop
     :parameters (?w - workshop)
-    :precondition (and (not (workshop-busy ?w)))
+    :precondition (and 
+        (not (workshop-busy ?w))
+        (not (assembly-lock item7))
+    )
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item7)
@@ -575,6 +593,7 @@
 (:action prep_assemble_item7_arrange_item0
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
         (workshop-allocated ?w item7)
         (agent-carrying-item ?a item0)
@@ -591,6 +610,7 @@
 (:action prep_assemble_item7_arrange_item1
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
         (workshop-allocated ?w item7)
         (agent-carrying-item ?a item1)
@@ -607,6 +627,7 @@
 (:action prep_assemble_item7_arrange_item2
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
         (workshop-allocated ?w item7)
         (agent-carrying-item ?a item2)
@@ -624,6 +645,7 @@
 (:action prep_assemble_item7_arrange_item3
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
         (workshop-allocated ?w item7)
         (agent-carrying-item ?a item3)
@@ -640,6 +662,7 @@
 (:action prep_assemble_item7_arrange_item4
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
         (workshop-allocated ?w item7)
         (agent-carrying-item ?a item4)
@@ -656,6 +679,7 @@
 (:action prep_assemble_item7_arrange_roles
     :parameters (?c - car ?m - motorcycle ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (or (agent-commited ?c item7) (not (agent-busy ?c)))
         (or (agent-commited ?m item7) (not (agent-busy ?m)))
        
