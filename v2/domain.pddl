@@ -128,6 +128,7 @@
     :precondition (and 
         (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
+        
         (workshop-allocated ?w item5)
    
         (agent-at-facility ?c ?w)
@@ -261,7 +262,7 @@
         (agent-at-facility ?a ?w)
     )
     :effect (and 
-        (item-arranged-for-assembly item0 item5)
+        (item-arranged-for-assembly item0 item6)
         (agent-busy ?a)
         (agent-commited ?a item6)    
     )
