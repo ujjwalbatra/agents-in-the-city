@@ -176,7 +176,7 @@
     )
     :effect (and 
         (item-assembled item5)    
-        (assemble-main-guy ?c item5)
+        (assemble-main-guy ?d item5)
         (not (assembly-resources-acquired item5)) 
         (assembly-lock item5)
     )
