@@ -166,18 +166,15 @@
 )
 
 
-
-
 (:action assemble_i5_drone
     :parameters ( ?d - drone ?w - workshop)
     :precondition (and 
-        (item-arranged-for-assembly item1 item5)
-        (item-arranged-for-assembly item4 item5)
-        (required-roles-arranged-for-assembly item5 ?w)   
+        (assembly-resources-acquired item5)  
     )
     :effect (and 
-        (item-assembled item5)     
-        (assemble-main-guy ?d item5)  
+        (item-assembled item5)    
+        (assemble-main-guy ?c item5)
+        (not (assembly-resources-acquired item5)) 
     )
 )
 
@@ -392,17 +389,12 @@
 (:action assemble_i6_motorcycle
     :parameters ( ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (item-arranged-for-assembly item0 item6)
-        (item-arranged-for-assembly item1 item6)
-        (item-arranged-for-assembly item2 item6)
-        (item-arranged-for-assembly item3 item6)
-        (item-arranged-for-assembly item4 item6)
-
-        (required-roles-arranged-for-assembly item6 ?w)   
+       (assembly-resources-acquired item6)  
     )
     :effect (and 
         (item-assembled item6)     
         (assemble-main-guy ?m item6)
+        (not (assembly-resources-acquired item6))
     )
 )
 
