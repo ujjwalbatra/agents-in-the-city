@@ -157,8 +157,10 @@
 
 (:action assemble_i5_car
     :parameters ( ?c - car ?w - workshop)
-    :precondition (and 
+    :precondition (and
+        (not (assembly-lock item5)) 
         (assembly-resources-acquired item5)
+         (agent-at-facility ?c ?w) 
     )
     :effect (and 
         (item-assembled item5)    
@@ -172,7 +174,9 @@
 (:action assemble_i5_drone
     :parameters ( ?d - drone ?w - workshop)
     :precondition (and 
-        (assembly-resources-acquired item5)  
+        (not (assembly-lock item5))
+        (assembly-resources-acquired item5) 
+        (agent-at-facility ?d ?w) 
     )
     :effect (and 
         (item-assembled item5)    
@@ -388,6 +392,8 @@
 (:action assemble_i6_truck
     :parameters ( ?t - truck ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item6))
+        (agent-at-facility ?t ?w)
         (assembly-resources-acquired item6)
     )
     :effect (and 
@@ -401,7 +407,9 @@
 (:action assemble_i6_motorcycle
     :parameters ( ?m - motorcycle ?w - workshop)
     :precondition (and 
-       (assembly-resources-acquired item6)  
+        (not (assembly-lock item6))
+        (agent-at-facility ?m ?w)
+        (assembly-resources-acquired item6)  
     )
     :effect (and 
         (item-assembled item6)     
@@ -675,7 +683,9 @@
 (:action assemble_i7_car
     :parameters ( ?c - car ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
         (assembly-resources-acquired item7)
+        (agent-at-facility ?c ?w)
     )
     :effect (and 
         (item-assembled item7)    
@@ -689,7 +699,9 @@
 (:action assemble_i7_motorcycle
     :parameters ( ?m - motorcycle ?w - workshop)
     :precondition (and 
+        (not (assembly-lock item7))
        (assembly-resources-acquired item7)  
+       (agent-at-facility ?m ?w)
     )
     :effect (and 
         (item-assembled item7)     
