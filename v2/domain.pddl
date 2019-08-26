@@ -29,7 +29,8 @@
     (assemble-main-guy ?a - agent ?i - item) ; a - the agent who gets the item, i - item being assembled
     (assembly-procedure-complete ?i - item) ;  - item that got assembled and everythong is complete
     (assembly-item-consumed ?i1 ?i2 - item) ; i1 - item being condumed i2 - item being assembled
-    (assembly-resources-acquired ?item_being_assembled - item )
+    (assembly-resources-acquired ?item_being_assembled - item)
+    (assembly-lock ?item_being_assembled) ; to stop from repeated assembly on same items
 )
 
 (:action give
@@ -144,6 +145,7 @@
 (:action assemble_i5_resources_aquired
     :parameters (?w - workshop)
     :precondition (and 
+        (not (assembly-lock item5))
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
         (required-roles-arranged-for-assembly item5 ?w)
@@ -162,6 +164,7 @@
         (item-assembled item5)    
         (assemble-main-guy ?c item5)
         (not (assembly-resources-acquired item5))
+        (assembly-lock item5)
     )
 )
 
@@ -175,12 +178,14 @@
         (item-assembled item5)    
         (assemble-main-guy ?c item5)
         (not (assembly-resources-acquired item5)) 
+        (assembly-lock item5)
     )
 )
 
 (:action consume_item1_assemble_i5
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item5)
         (item-assembled item5)
         (agent-carrying-item ?a item1)
         (agent-commited ?a item5)        
@@ -197,6 +202,7 @@
 (:action consume_item4_assemble_i5
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item5)
         (item-assembled item5)
         (agent-carrying-item ?a item4)
         (agent-commited ?a item5)        
@@ -213,6 +219,7 @@
 (:action post_assemble_i5_freeup_everything
     :parameters (?c - car ?d - drone ?w - workshop)
     :precondition (and 
+        (assembly-lock item5)
         (assembly-item-consumed item1 item5)
         (assembly-item-consumed item4 item5)
     )
@@ -236,6 +243,7 @@
 (:action release_assembled_item5
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item5)
         (assembly-procedure-complete item5)
         (assemble-main-guy ?a item5)
     )
@@ -243,6 +251,7 @@
         (not (assemble-main-guy ?a item5))
         (agent-carrying-item ?a item5)
         (not (assembly-procedure-complete item5))
+        (not (assembly-lock item5))
     )
 )
 
@@ -359,8 +368,10 @@
 )
 
 (:action assemble_i6_resources_aquired
-    :parameters ((?w - workshop))
+    :parameters (?w - workshop)
     :precondition (and 
+        (not (assembly-lock item6))
+
         (item-arranged-for-assembly item0 item6)
         (item-arranged-for-assembly item1 item6)
         (item-arranged-for-assembly item2 item6)
@@ -383,6 +394,7 @@
         (item-assembled item6)    
         (assemble-main-guy ?t item6)
         (not (assembly-resources-acquired item6))
+        (assembly-lock item6)
     )
 )
 
@@ -395,12 +407,15 @@
         (item-assembled item6)     
         (assemble-main-guy ?m item6)
         (not (assembly-resources-acquired item6))
+        (assembly-lock item6)
     )
 )
 
 (:action consume_item0_assemble_i6
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item6)
+
         (item-assembled item6)
         (agent-carrying-item ?a item0)
         (agent-commited ?a item6)        
@@ -417,6 +432,8 @@
 (:action consume_item1_assemble_i6
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item6)
+
         (item-assembled item6)
         (agent-carrying-item ?a item1)
         (agent-commited ?a item6)        
@@ -433,6 +450,8 @@
 (:action consume_item2_assemble_i6
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item6)
+
         (item-assembled item6)
         (agent-carrying-item ?a item2)
         (agent-commited ?a item6)        
@@ -449,6 +468,8 @@
 (:action consume_item3_assemble_i6
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item6)
+
         (item-assembled item6)
         (agent-carrying-item ?a item3)
         (agent-commited ?a item6)        
@@ -465,6 +486,8 @@
 (:action consume_item4_assemble_i6
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item6)
+
         (item-assembled item6)
         (agent-carrying-item ?a item4)
         (agent-commited ?a item6)        
@@ -482,6 +505,8 @@
 (:action post_assemble_i6_freeup_everything
     :parameters (?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
+        (assembly-lock item6)
+
         (assembly-item-consumed item0 item6)
         (assembly-item-consumed item1 item6)
         (assembly-item-consumed item2 item6)
@@ -506,6 +531,7 @@
 (:action release_assembled_item6
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item6)
         (assembly-procedure-complete item6)
         (assemble-main-guy ?a item6)
     )
@@ -513,6 +539,7 @@
         (agent-carrying-item ?a item6)
         (not (assemble-main-guy ?a item6))
         (not (assembly-procedure-complete item6))
+        (not (assembly-lock item6))
     )
 )
 
@@ -630,6 +657,8 @@
 (:action assemble_i7_resources_aquired
     :parameters ((?w - workshop))
     :precondition (and 
+        (not (assembly-lock item7))
+
         (item-arranged-for-assembly item0 item7)
         (item-arranged-for-assembly item1 item7)
         (item-arranged-for-assembly item2 item7)
@@ -652,6 +681,8 @@
         (item-assembled item7)    
         (assemble-main-guy ?c item7)
         (not (assembly-resources-acquired item7))
+
+        (assembly-lock item7)
     )
 )
 
@@ -664,12 +695,15 @@
         (item-assembled item7)     
         (assemble-main-guy ?m item7)
         (not (assembly-resources-acquired item7))
+
+        (assembly-lock item7)
     )
 )
 
 (:action consume_item0_assemble_i7
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item7)
         (item-assembled item7)
         (agent-carrying-item ?a item0)
         (agent-commited ?a item7)        
@@ -686,6 +720,7 @@
 (:action consume_item1_assemble_i7
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item7)
         (item-assembled item7)
         (agent-carrying-item ?a item1)
         (agent-commited ?a item7)        
@@ -702,6 +737,8 @@
 (:action consume_item2_assemble_i7
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item7)
+
         (item-assembled item7)
         (agent-carrying-item ?a item2)
         (agent-commited ?a item7)        
@@ -718,6 +755,7 @@
 (:action consume_item3_assemble_i7
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item7)
         (item-assembled item7)
         (agent-carrying-item ?a item3)
         (agent-commited ?a item7)        
@@ -734,6 +772,8 @@
 (:action consume_item4_assemble_i7
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item7)
+
         (item-assembled item7)
         (agent-carrying-item ?a item4)
         (agent-commited ?a item7)        
@@ -751,6 +791,8 @@
 (:action post_assemble_i7_freeup_everything
     :parameters (?c - car ?m - motorcycle ?w - workshop)
     :precondition (and 
+        (assembly-lock item7)
+
         (assembly-item-consumed item0 item7)
         (assembly-item-consumed item1 item7)
         (assembly-item-consumed item2 item7)
@@ -775,6 +817,7 @@
 (:action release_assembled_item7
     :parameters (?a - agent)
     :precondition (and 
+        (assembly-lock item7)
         (assembly-procedure-complete item7)
         (assemble-main-guy ?a item7)
     )
@@ -782,6 +825,7 @@
         (agent-carrying-item ?a item7)
         (not (assemble-main-guy ?a item7))
         (not (assembly-procedure-complete item7))
+        (not (assembly-lock item7))
     )
 )
 

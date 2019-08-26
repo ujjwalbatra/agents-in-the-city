@@ -50,6 +50,10 @@
     (not (workshop-busy workshop2))
     (not (workshop-busy workshop3))
 
+    (not (assembly-lock item5))
+    (not (assembly-lock item6))
+    (not (assembly-lock item7))
+
     (not (agent-busy truck1))
     (not (agent-busy truck2))
     (not (agent-busy truck3))
