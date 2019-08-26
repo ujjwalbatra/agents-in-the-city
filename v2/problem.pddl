@@ -113,7 +113,7 @@
 )
 
 (:goal (and
-        (agent-carrying-item drone1 item5)
+        (agent-carrying-item truck1 item6)
     )
 )
 

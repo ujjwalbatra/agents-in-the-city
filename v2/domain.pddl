@@ -56,8 +56,7 @@
     :precondition (and 
         (agent-carrying-item ?a ?i)
         (agent-at-facility ?a ?s)
-        (not (agent-busy ?a1))
-        (not (agent-busy ?a2))
+        (not (agent-busy ?a))
     )
     :effect (and 
         (not (agent-carrying-item ?a ?i))
@@ -673,7 +672,7 @@
 )
 
 (:action assemble_i7_resources_aquired
-    :parameters ((?w - workshop))
+    :parameters (?w - workshop)
     :precondition (and 
         (not (assembly-lock item7))
 
