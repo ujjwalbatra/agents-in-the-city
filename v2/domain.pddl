@@ -40,6 +40,8 @@
         (agent-at-facility ?a1 ?f)
         (agent-at-facility ?a2 ?f)
         (not (agent-carrying-item ?a2 ?i))
+        (not (agent-busy ?a1))
+        (not (agent-busy ?a2))
     )
     :effect (and 
     (not (agent-carrying-item ?a1 ?i))
@@ -54,6 +56,8 @@
     :precondition (and 
         (agent-carrying-item ?a ?i)
         (agent-at-facility ?a ?s)
+        (not (agent-busy ?a1))
+        (not (agent-busy ?a2))
     )
     :effect (and 
         (not (agent-carrying-item ?a ?i))
@@ -64,8 +68,10 @@
 ; item taken by an agent from a resource node
 (:action gather
     :parameters (?a - agent ?i - item ?n - resourceNode)
-    :precondition (and (item-in-resourceNode ?i ?n)
-                (agent-at-facility ?a ?n)
+    :precondition (and 
+        (item-in-resourceNode ?i ?n)
+        (agent-at-facility ?a ?n)
+        (not (agent-busy ?a))
     )
     :effect (and 
         (agent-carrying-item ?a ?i)
@@ -75,7 +81,11 @@
 
 (:action goto
     :parameters (?a - agent ?loc1 ?loc2 - facility)
-    :precondition (and (agent-at-facility ?a ?loc1) (not (= ?loc1 ?loc2)))
+    :precondition (and 
+        (agent-at-facility ?a ?loc1)    
+        (not (= ?loc1 ?loc2))
+        (not (agent-busy ?a))
+    )
     :effect (and (agent-at-facility ?a ?loc2)
             (not (agent-at-facility ?a ?loc1))
     )
