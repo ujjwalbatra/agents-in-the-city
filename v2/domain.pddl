@@ -29,7 +29,7 @@
     (assemble-main-guy ?a - agent ?i - item) ; a - the agent who gets the item, i - item being assembled
     (assembly-procedure-complete ?i - item) ;  - item that got assembled and everythong is complete
     (assembly-item-consumed ?i1 ?i2 - item) ; i1 - item being condumed i2 - item being assembled
-
+    (assembly-resources-acquired ?item_being_assembled - item )
 )
 
 (:action give
@@ -141,19 +141,32 @@
     )
 )
 
-(:action assemble_i5_car
-    :parameters ( ?c - car ?w - workshop)
+(:action assemble_i5_resources_aquired
+    :parameters ()
     :precondition (and 
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
+        (required-roles-arranged-for-assembly item5 ?w)
+    )
+    :effect (and 
+        (assembly-resources-acquired item5)
+    )
+)
 
-        (required-roles-arranged-for-assembly item5 ?w)   
+(:action assemble_i5_car
+    :parameters ( ?c - car ?w - workshop)
+    :precondition (and 
+        (assembly-resources-acquired item5)
     )
     :effect (and 
         (item-assembled item5)    
         (assemble-main-guy ?c item5)
+        (not (assembly-resources-acquired item5))
     )
 )
+
+
+
 
 (:action assemble_i5_drone
     :parameters ( ?d - drone ?w - workshop)
@@ -348,8 +361,8 @@
     )
 )
 
-(:action assemble_i6_truck
-    :parameters ( ?t - truck ?w - workshop)
+(:action assemble_i5_resources_aquired
+    :parameters ()
     :precondition (and 
         (item-arranged-for-assembly item0 item6)
         (item-arranged-for-assembly item1 item6)
@@ -360,8 +373,19 @@
         (required-roles-arranged-for-assembly item6 ?w)
     )
     :effect (and 
+        (assembly-resources-acquired item6)
+    )
+)
+
+(:action assemble_i6_truck
+    :parameters ( ?t - truck ?w - workshop)
+    :precondition (and 
+        (assembly-resources-acquired item6)
+    )
+    :effect (and 
         (item-assembled item6)    
         (assemble-main-guy ?t item6)
+        (not (assembly-resources-acquired item6))
     )
 )
 
