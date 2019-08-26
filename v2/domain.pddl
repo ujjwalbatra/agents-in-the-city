@@ -180,6 +180,7 @@
         (not (agent-carrying-item ?a item1))
         (not (agent-commited ?a item5))
         (assembly-item-consumed item1 item5)
+        (not (item-arranged-for-assembly item1 item5))
     )
 )
 
@@ -195,6 +196,7 @@
         (not (agent-carrying-item ?a item4))
         (not (agent-commited ?a item5))
         (assembly-item-consumed item4 item5)
+        (not (item-arranged-for-assembly item4 item5))
     )
 )
 
@@ -355,7 +357,7 @@
         (item-arranged-for-assembly item3 item6)
         (item-arranged-for-assembly item4 item6)
 
-        (required-roles-arranged-for-assembly item6 ?w)   
+        (required-roles-arranged-for-assembly item6 ?w)
     )
     :effect (and 
         (item-assembled item6)    
@@ -376,7 +378,7 @@
     )
     :effect (and 
         (item-assembled item6)     
-        (assemble-main-guy ?m item6)  
+        (assemble-main-guy ?m item6)
     )
 )
 
@@ -392,6 +394,7 @@
         (not (agent-carrying-item ?a item0))
         (not (agent-commited ?a item6))
         (assembly-item-consumed item0 item6)
+        (not (item-arranged-for-assembly item0 item6))
     )
 )
 
@@ -407,6 +410,7 @@
         (not (agent-carrying-item ?a item1))
         (not (agent-commited ?a item6))
         (assembly-item-consumed item1 item6)
+        (not (item-arranged-for-assembly item1 item6))
     )
 )
 
@@ -422,6 +426,7 @@
         (not (agent-carrying-item ?a item2))
         (not (agent-commited ?a item6))
         (assembly-item-consumed item2 item6)
+        (not (item-arranged-for-assembly item2 item6))
     )
 )
 
@@ -437,6 +442,7 @@
         (not (agent-carrying-item ?a item3))
         (not (agent-commited ?a item6))
         (assembly-item-consumed item3 item6)
+        (not (item-arranged-for-assembly item3 item6))
     )
 )
 
@@ -452,6 +458,7 @@
         (not (agent-carrying-item ?a item4))
         (not (agent-commited ?a item6))
         (assembly-item-consumed item4 item6)
+        (not (item-arranged-for-assembly item4 item6))
     )
 )
 
