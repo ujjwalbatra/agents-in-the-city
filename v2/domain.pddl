@@ -231,9 +231,12 @@
 
 (:action release_assembled_item5
     :parameters (?a - agent)
-    :precondition (and (assembly-procedure-complete item5))
-    :effect (and 
+    :precondition (and 
+        (assembly-procedure-complete item5)
         (assemble-main-guy ?a item5)
+    )
+    :effect (and 
+        
         (agent-carrying-item ?a item5)
         
         (not (assembly-procedure-complete item5))
@@ -496,9 +499,11 @@
 
 (:action release_assembled_item6
     :parameters (?a - agent)
-    :precondition (and (assembly-procedure-complete item6))
-    :effect (and 
+    :precondition (and 
+        (assembly-procedure-complete item6)
         (assemble-main-guy ?a item6)
+    )
+    :effect (and 
         (agent-carrying-item ?a item6)
         
         (not (assembly-procedure-complete item6))
