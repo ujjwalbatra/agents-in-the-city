@@ -166,6 +166,8 @@
         (required-roles-arranged-for-assembly item5 ?w)
         (agent-commited ?c item5)
         (agent-commited ?d item5)
+        (agent-busy ?c)
+        (agent-busy ?d)
     )
 )
 
@@ -404,6 +406,8 @@
         (required-roles-arranged-for-assembly item6 ?w)
         (agent-commited ?t item6)
         (agent-commited ?m item6)
+        (agent-busy ?c)
+        (agent-busy ?d)
     )
 )
 
@@ -704,6 +708,8 @@
         (required-roles-arranged-for-assembly item7 ?w)
         (agent-commited ?c item7)
         (agent-commited ?m item7)
+        (agent-busy ?c)
+        (agent-busy ?m)
     )
 )
 
