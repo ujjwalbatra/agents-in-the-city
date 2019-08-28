@@ -406,8 +406,8 @@
         (required-roles-arranged-for-assembly item6 ?w)
         (agent-commited ?t item6)
         (agent-commited ?m item6)
-        (agent-busy ?c)
-        (agent-busy ?d)
+        (agent-busy ?t)
+        (agent-busy ?m)
     )
 )
 
