@@ -175,8 +175,10 @@
     :parameters (?w - workshop)
     :precondition (and 
         (not (assembly-lock item5))
+
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
+
         (required-roles-arranged-for-assembly item5 ?w)
     )
     :effect (and 
@@ -189,7 +191,7 @@
     :precondition (and
         (not (assembly-lock item5)) 
         (assembly-resources-acquired item5)
-         (agent-at-facility ?c ?w) 
+        (agent-at-facility ?c ?w) 
     )
     :effect (and 
         (item-assembled item5)    
@@ -572,6 +574,12 @@
         (not (workshop-allocated ?w item6))
         (not (workshop-busy ?w))
 
+        (not (assembly-item-consumed item0 item6))
+        (not (assembly-item-consumed item1 item6))
+        (not (assembly-item-consumed item2 item6))
+        (not (assembly-item-consumed item3 item6))
+        (not (assembly-item-consumed item4 item6))
+
         (assembly-procedure-complete item6)
     )
 )
@@ -872,6 +880,12 @@
         (not (required-roles-arranged-for-assembly item7 ?w))
         (not (workshop-allocated ?w item7))
         (not (workshop-busy ?w))
+
+        (not (assembly-item-consumed item0 item7))
+        (not (assembly-item-consumed item1 item7))
+        (not (assembly-item-consumed item2 item7))
+        (not (assembly-item-consumed item3 item7))
+        (not (assembly-item-consumed item4 item7))
 
         (assembly-procedure-complete item7)
     )
