@@ -24,6 +24,7 @@
     (agent-commited ?a - agent ?i - item)  ; agent commited to assembly
     (workshop-allocated ?w - workshop ?i - item)
     (item-arranged-for-assembly ?i1 ?i2 - item) ; i1 - item required, i2 - item being assembled
+    (agent-providing-item-for-assembly ?a - agent ?item_required ?item_assembled - item)
     (required-roles-arranged-for-assembly ?i - item ?w - workshop) ; i - item to be assembled, w - workshop at which required roles are present
     (item-assembled ?i - item)
     (assemble-main-guy ?a - agent ?i - item) ; a - the agent who gets the item, i - item being assembled
@@ -127,6 +128,7 @@
     )
     :effect (and 
         (item-arranged-for-assembly item1 item5)
+        (agent-providing-item-for-assembly ?a item1 item5)
         (agent-busy ?a)
         (agent-commited ?a item5)    
     )
@@ -144,6 +146,7 @@
     )
     :effect (and 
         (item-arranged-for-assembly item4 item5)
+        (agent-providing-item-for-assembly ?a item4 item5)
         (agent-busy ?a)
         (agent-commited ?a item5) 
     )
@@ -223,6 +226,7 @@
         (assembly-lock item5)
         (item-assembled item5)
         (agent-carrying-item ?a item1)
+        (agent-providing-item-for-assembly ?a item1 item5)
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -230,6 +234,7 @@
         (not (agent-commited ?a item5))
         (assembly-item-consumed item1 item5)
         (not (item-arranged-for-assembly item1 item5))
+        (not (agent-providing-item-for-assembly ?a item1 item5))
     )
 )
 
@@ -239,6 +244,7 @@
         (assembly-lock item5)
         (item-assembled item5)
         (agent-carrying-item ?a item4)
+        (agent-providing-item-for-assembly ?a item4 item5)
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -246,6 +252,7 @@
         (not (agent-commited ?a item5))
         (assembly-item-consumed item4 item5)
         (not (item-arranged-for-assembly item4 item5))
+        (not (agent-providing-item-for-assembly ?a item4 item5))
     )
 )
 
@@ -316,7 +323,8 @@
     :effect (and 
         (item-arranged-for-assembly item0 item6)
         (agent-busy ?a)
-        (agent-commited ?a item6)    
+        (agent-commited ?a item6) 
+        (agent-providing-item-for-assembly ?a item0 item6)   
     )
 )
 
@@ -334,6 +342,7 @@
         (item-arranged-for-assembly item1 item6)
         (agent-busy ?a)
         (agent-commited ?a item6)    
+        (agent-providing-item-for-assembly ?a item1 item6)
     )
 )
 
@@ -351,6 +360,7 @@
         (item-arranged-for-assembly item2 item6)
         (agent-busy ?a)
         (agent-commited ?a item6)    
+        (agent-providing-item-for-assembly ?a item2 item6)
     )
 )
 
@@ -368,6 +378,7 @@
         (item-arranged-for-assembly item3 item6)
         (agent-busy ?a)
         (agent-commited ?a item6)    
+        (agent-providing-item-for-assembly ?a item3 item6)
     )
 )
 
@@ -385,6 +396,7 @@
         (item-arranged-for-assembly item4 item6)
         (agent-busy ?a)
         (agent-commited ?a item6) 
+        (agent-providing-item-for-assembly ?a item4 item6)
     )
 )
 
@@ -462,7 +474,7 @@
     :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
-
+        (agent-providing-item-for-assembly ?a item0 item6)
         (item-assembled item6)
         (agent-carrying-item ?a item0)
     )
@@ -472,6 +484,7 @@
         (not (agent-commited ?a item6))
         (assembly-item-consumed item0 item6)
         (not (item-arranged-for-assembly item0 item6))
+        (not (agent-providing-item-for-assembly ?a item0 item6))
     )
 )
 
@@ -479,7 +492,7 @@
     :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
-
+        (agent-providing-item-for-assembly ?a item1 item6)
         (item-assembled item6)
         (agent-carrying-item ?a item1)
     )
@@ -489,6 +502,7 @@
         (not (agent-commited ?a item6))
         (assembly-item-consumed item1 item6)
         (not (item-arranged-for-assembly item1 item6))
+        (not (agent-providing-item-for-assembly ?a item1 item6))
     )
 )
 
@@ -496,7 +510,7 @@
     :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
-
+        (agent-providing-item-for-assembly ?a item1 item6)
         (item-assembled item6)
         (agent-carrying-item ?a item2)
     )
@@ -506,6 +520,7 @@
         (not (agent-commited ?a item6))
         (assembly-item-consumed item2 item6)
         (not (item-arranged-for-assembly item2 item6))
+        (not (agent-providing-item-for-assembly ?a item2 item6))
     )
 )
 
@@ -513,7 +528,7 @@
     :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
-
+        (agent-providing-item-for-assembly ?a item3 item6)
         (item-assembled item6)
         (agent-carrying-item ?a item3)
     )
@@ -523,6 +538,7 @@
         (not (agent-commited ?a item6))
         (assembly-item-consumed item3 item6)
         (not (item-arranged-for-assembly item3 item6))
+        (not (agent-providing-item-for-assembly ?a item3 item6))
     )
 )
 
@@ -530,7 +546,7 @@
     :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
-
+        (agent-providing-item-for-assembly ?a item4 item6)
         (item-assembled item6)
         (agent-carrying-item ?a item4)
     )
@@ -540,6 +556,7 @@
         (not (agent-commited ?a item6))
         (assembly-item-consumed item4 item6)
         (not (item-arranged-for-assembly item4 item6))
+        (not (agent-providing-item-for-assembly ?a item4 item6))
     )
 )
 
