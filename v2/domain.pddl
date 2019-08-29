@@ -223,7 +223,6 @@
         (assembly-lock item5)
         (item-assembled item5)
         (agent-carrying-item ?a item1)
-        (agent-commited ?a item5)        
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -240,7 +239,6 @@
         (assembly-lock item5)
         (item-assembled item5)
         (agent-carrying-item ?a item4)
-        (agent-commited ?a item5)        
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -467,7 +465,6 @@
 
         (item-assembled item6)
         (agent-carrying-item ?a item0)
-        (agent-commited ?a item6)        
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -485,7 +482,6 @@
 
         (item-assembled item6)
         (agent-carrying-item ?a item1)
-        (agent-commited ?a item6)        
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -503,7 +499,6 @@
 
         (item-assembled item6)
         (agent-carrying-item ?a item2)
-        (agent-commited ?a item6)        
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -521,7 +516,6 @@
 
         (item-assembled item6)
         (agent-carrying-item ?a item3)
-        (agent-commited ?a item6)        
     )
     :effect (and 
         (not (agent-busy ?a))
@@ -539,7 +533,6 @@
 
         (item-assembled item6)
         (agent-carrying-item ?a item4)
-        (agent-commited ?a item6)        
     )
     :effect (and 
         (not (agent-busy ?a))
