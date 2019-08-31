@@ -1,6 +1,6 @@
 # PDDL Models for Agents in City 2018
 
-These are a set of PDDL models to handle the [2018 Agents in City](https://multiagentcontest.org/2018/) domain from the International [Multi-Agent Contest](https://multiagentcontest.org/).
+These are a set of [PDDL models](http://users.cecs.anu.edu.au/~patrik/pddlman/writing.html) to handle the [2018 Agents in City](https://multiagentcontest.org/2018/) domain from the International [Multi-Agent Contest](https://multiagentcontest.org/).
 
 
 ## Directory Structure
