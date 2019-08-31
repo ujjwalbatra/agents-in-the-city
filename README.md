@@ -17,7 +17,14 @@ There are various directories for the following purposes:
 
 * v2: New modeling with actions with less variables (fixes scalablity)
 
+## Editing the models
+
+Models have been developed using [Visual Studio Code](https://code.visualstudio.com/) IDE with the [PDDL extension](https://marketplace.visualstudio.com/items?itemName=jan-dolejsi.pddl).
+
+The planner used on it is, as of August 2019, [SIW Plus-then-BFS with FF parser](https://github.com/LAPKT-dev/LAPKT-public/tree/master/planners/siw_plus-then-bfs_f-ffparser) from LAPTK.
+
 
 ## Running some models
 
 The above models have been tested with various planers from the [Lightweight Automated Planning Toolkit](https://github.com/aig-upf/LAPKT-public) (LAPKT), which contains a [collection of planners](http://lapkt.org/index.php?title=Documentation) that can be compiled and used almost on-the-spot (many planners with both FF and FD parsers).
+
