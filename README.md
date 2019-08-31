@@ -1,4 +1,7 @@
-# Agents in the city Domain
+# PDDL Models for Agents in City 2018
+
+These are a set of PDDL models to handle the [2018 Agents in City](https://multiagentcontest.org/2018/) domain from the International [Multi-Agent Contest](https://multiagentcontest.org/).
+
 
 ## Directory Structure
 
@@ -13,4 +16,6 @@ There are various directories for the following purposes:
     * output1.txt - Ouput of problem 1 on [siw plus planner](http://lapkt.org/index.php?title=Documentation#SIW_Plus)
 
 * v2: New modeling with actions with less variables (fixes scalablity)
-g
+
+
+## Running some models
