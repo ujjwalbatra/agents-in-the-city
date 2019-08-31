@@ -30,7 +30,7 @@ The above models have been tested with various planers from the [Lightweight Aut
 
 Assuming LAPKT has been compiled, here is an example:
 
-```
+```shell
 $ ./siw-then-bfsf --domain v1/domain.pddl --problem v1/problem1.pddl --output v1/plan-p1-1.plan
  --- OK.
  Match tree built with 152608 nodes.
