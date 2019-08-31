@@ -19,3 +19,5 @@ There are various directories for the following purposes:
 
 
 ## Running some models
+
+The above models have been tested with various planers from the [Lightweight Automated Planning Toolkit](https://github.com/aig-upf/LAPKT-public) (LAPKT), which contains a [collection of planners](http://lapkt.org/index.php?title=Documentation) that can be compiled and used almost on-the-spot (many planners with both FF and FD parsers).
