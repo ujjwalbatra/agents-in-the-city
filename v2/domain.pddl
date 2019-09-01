@@ -204,7 +204,6 @@
     :effect (and 
         (item-assembled item5)  
         (assemble-main-guy ?c item5)
-        (not (assembly-resources-acquired item5))
         (assembly-required-agent ?c ?w)
     )
 )
@@ -220,7 +219,6 @@
     :effect (and 
         (item-assembled item5)    
         (assemble-main-guy ?d item5)
-        (not (assembly-resources-acquired item5)) 
         (assembly-required-agent ?d ?w)
     )
 )
@@ -285,6 +283,9 @@
 
         (not (assembly-required-agent ?c ?w))
         (not (assembly-required-agent ?d ?w))
+
+        (not (assembly-resources-acquired item5)) 
+
 
         (assembly-procedure-complete item5)
     )
