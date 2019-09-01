@@ -2,7 +2,7 @@
 
 (define (domain agents-in-the-city)
 
-(:requirements :strips :fluents :typing :negative-preconditions :equality)
+(:requirements :strips :typing :negative-preconditions :equality)
 
 (:types ; enumerate types and their hierarchy here, e.g. car truck bus - vehicle
     truck motorcycle drone car - agent
@@ -19,10 +19,6 @@
     (agent-at-facility ?a - agent ?f - facility)  ; agent is at facility l
     (agent-carrying-item ?a - agent ?i - item)  ; agent is carrying item i
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
-    (job-complete ?s - storage ?i - item)  ; job completion requires certain item(s) in a particular storage
-    (is_assembling ?a - agent ?i - item ?w - workshop)
-    (is_assisting_assemble ?a - agent ?i - item ?w - workshop)
-)
 
 (:action give
     :parameters (?a1 ?a2 - agent ?i - item ?f - facility)
