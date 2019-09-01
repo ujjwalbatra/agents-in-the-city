@@ -592,6 +592,9 @@
         (assembly-item-consumed item2 item6)
         (assembly-item-consumed item3 item6)
         (assembly-item-consumed item4 item6)
+
+        (assembly-required-agent ?t item5)
+        (assembly-required-agent ?m item5)
     )
     :effect (and 
 
