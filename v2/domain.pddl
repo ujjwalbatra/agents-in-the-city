@@ -32,6 +32,7 @@
     (assembly-item-consumed ?i1 ?i2 - item) ; i1 - item being condumed i2 - item being assembled
     (assembly-resources-acquired ?item_being_assembled - item)
     (assembly-lock ?item_being_assembled) ; to stop from repeated assembly on same items
+    (assembly-required-agent ?a - agent ?w - workshop)
 )
 
 (:action give
@@ -200,6 +201,7 @@
     :effect (and 
         (assemble-main-guy ?c item5)
         (not (assembly-resources-acquired item5))
+        (assembly-required-agent ?c ?w)
     )
 )
 
@@ -215,6 +217,7 @@
         (item-assembled item5)    
         (assemble-main-guy ?d item5)
         (not (assembly-resources-acquired item5)) 
+        (assembly-required-agent ?d ?w)
     )
 )
 
@@ -260,6 +263,8 @@
         (assembly-lock item5)
         (assembly-item-consumed item1 item5)
         (assembly-item-consumed item4 item5)
+        (assembly-required-agent ?c ?w)
+        (assembly-required-agent ?d ?w)
     )
     :effect (and 
         (not (item-assembled item5))
@@ -273,6 +278,9 @@
 
         (not (assembly-item-consumed item1 item5))
         (not (assembly-item-consumed item4 item5))
+
+        (not (assembly-required-agent ?c ?w))
+        (not (assembly-required-agent ?d ?w))
 
         (assembly-procedure-complete item5)
     )
