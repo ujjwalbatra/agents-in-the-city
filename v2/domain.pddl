@@ -110,6 +110,7 @@
     :precondition (and 
         (not (workshop-busy ?w))
         (not (assembly-lock item5))
+        (not (workshop-allocated ?w item5))
     )
     :effect (and 
         (workshop-busy ?w)
@@ -122,6 +123,8 @@
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
+        (not (item-arranged-for-assembly item1 item5)
+        )
         (workshop-allocated ?w item5)
         (not (assembly-lock item5))
         (agent-carrying-item ?a item1)
@@ -139,6 +142,7 @@
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
+        (not (item-arranged-for-assembly item4 item5))
 
         (workshop-allocated ?w item5)
         (not (assembly-lock item5))
@@ -159,6 +163,8 @@
         (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
         (not (assembly-lock item5))
+
+        (not (required-roles-arranged-for-assembly item5 ?w))
    
         (workshop-allocated ?w item5)
    
@@ -178,6 +184,7 @@
     :parameters (?w - workshop)
     :precondition (and 
         (not (assembly-lock item5))
+        (not (assembly-resources-acquired item5))
 
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
@@ -186,7 +193,6 @@
     )
     :effect (and 
         (assembly-resources-acquired item5)
-        (assembly-lock item5)
     )
 )
 
