@@ -110,7 +110,6 @@
     :precondition (and 
         (not (workshop-busy ?w))
         (not (assembly-lock item5))
-        (not (workshop-allocated ?w item5))
     )
     :effect (and 
         (workshop-busy ?w)
@@ -128,6 +127,7 @@
         (workshop-allocated ?w item5)
         (assembly-lock item5)
         (agent-carrying-item ?a item1)
+        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item1 item5)
@@ -172,10 +172,8 @@
     )
     :effect (and 
         (required-roles-arranged-for-assembly item5)
-
         (assembly-required-agent ?c item5)
         (assembly-required-agent ?d item5)
-
         (agent-commited ?c item5)
         (agent-commited ?d item5)
         (agent-busy ?c)
@@ -323,6 +321,7 @@
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item6)
+        (assembly-lock item6)
     )
 )
 
@@ -331,8 +330,9 @@
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
         (or (not (agent-busy ?a)) (agent-commited ?a item6))
+        (not (item-arranged-for-assembly item0 item6))
         (workshop-allocated ?w item6)
-        (not (assembly-lock item6))
+        (assembly-lock item6)
         (agent-carrying-item ?a item0)
         (agent-at-facility ?a ?w)
     )
@@ -349,8 +349,9 @@
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
+        (not (item-arranged-for-assembly item1 item6))
         (workshop-allocated ?w item6)
-        (not (assembly-lock item6))
+        (assembly-lock item6)
         (agent-carrying-item ?a item1)
         (agent-at-facility ?a ?w)
     )
@@ -366,9 +367,10 @@
 (:action prep_assemble_item6_arrange_item2
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
+        (assembly-lock item6)
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
+        (not (item-arranged-for-assembly item2 item6))
         (agent-carrying-item ?a item2)
         (agent-at-facility ?a ?w)
     )
@@ -384,7 +386,8 @@
 (:action prep_assemble_item6_arrange_item3
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
+        (assembly-lock item6)
+        (not (item-arranged-for-assembly item3 item6))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
         (agent-carrying-item ?a item3)
@@ -402,7 +405,8 @@
 (:action prep_assemble_item6_arrange_item4
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
+        (assembly-lock item6)
+        (not (item-arranged-for-assembly item4 item6))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
         (workshop-allocated ?w item6)
         (agent-carrying-item ?a item4)
@@ -420,17 +424,20 @@
 (:action prep_assemble_item6_arrange_roles
     :parameters (?t - truck ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
+        (assembly-lock item6)
         (or (agent-commited ?t item6) (not (agent-busy ?t)))
         (or (agent-commited ?m item6) (not (agent-busy ?m)))
        
         (workshop-allocated ?w item6)
+        (not (required-roles-arranged-for-assembly item6))
 
         (agent-at-facility ?t ?w)
         (agent-at-facility ?m ?w)
     )
     :effect (and 
         (required-roles-arranged-for-assembly item6)
+        (assembly-required-agent ?t item6)
+        (assembly-required-agent ?m item6)
         (agent-commited ?t item6)
         (agent-commited ?m item6)
         (agent-busy ?t)
@@ -441,7 +448,8 @@
 (:action assemble_i6_resources_aquired
     :parameters (?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
+        (assembly-lock item6)
+        (not (assembly-resources-acquired item6))
 
         (item-arranged-for-assembly item0 item6)
         (item-arranged-for-assembly item1 item6)
@@ -459,30 +467,28 @@
 (:action assemble_i6_truck
     :parameters ( ?t - truck ?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
-        (agent-commited ?t item6)
+        (assembly-lock item6)
         (assembly-resources-acquired item6)
+        (agent-commited ?t item6)
+        (not (item-assembled item6))
     )
     :effect (and 
         (item-assembled item6)    
         (assemble-main-guy ?t item6)
-        (not (assembly-resources-acquired item6))
-        (assembly-lock item6)
     )
 )
 
 (:action assemble_i6_motorcycle
     :parameters ( ?m - motorcycle ?w - workshop)
     :precondition (and 
-        (not (assembly-lock item6))
-        (agent-commited ?m item5)
+        (assembly-lock item6)
+        (agent-commited ?m item6)
+        (assembly-resources-acquired item6)
         (assembly-resources-acquired item6)  
     )
     :effect (and 
         (item-assembled item6)     
         (assemble-main-guy ?m item6)
-        (not (assembly-resources-acquired item6))
-        (assembly-lock item6)
     )
 )
 
@@ -603,6 +609,9 @@
         (not (assembly-item-consumed item2 item6))
         (not (assembly-item-consumed item3 item6))
         (not (assembly-item-consumed item4 item6))
+
+        (not (assembly-required-agent ?t item6))
+        (not (assembly-required-agent ?m item6))
 
         (assembly-procedure-complete item6)
     )

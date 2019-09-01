@@ -47,8 +47,17 @@
 
     (not (item-arranged-for-assembly item1 item5))
     (not (item-arranged-for-assembly item4 item5))
+    (not (item-arranged-for-assembly item0 item6))
+    (not (item-arranged-for-assembly item1 item6))
+    (not (item-arranged-for-assembly item2 item6))
+    (not (item-arranged-for-assembly item3 item6))
+    (not (item-arranged-for-assembly item4 item6))
 
     (not (assembly-resources-acquired item5))
+    (not (assembly-resources-acquired item6))
+
+    (not (required-roles-arranged-for-assembly item5))
+    (not (required-roles-arranged-for-assembly item6))
 
     (not (workshop-busy workshop0))
     (not (workshop-busy workshop1))
