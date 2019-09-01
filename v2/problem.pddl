@@ -45,6 +45,11 @@
     (item-in-resourceNode item2 node9)
     (item-in-resourceNode item4 node10)
 
+    (not (item-arranged-for-assembly item1 item5))
+    (not (item-arranged-for-assembly item4 item5))
+
+    (not (assembly-resources-acquired item5))
+
     (not (workshop-busy workshop0))
     (not (workshop-busy workshop1))
     (not (workshop-busy workshop2))

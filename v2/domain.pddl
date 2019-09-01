@@ -115,6 +115,7 @@
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item5)
+        (assembly-lock item5)
     )
 )
 
@@ -123,10 +124,9 @@
     :parameters (?a - agent ?w - workshop)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
-        (not (item-arranged-for-assembly item1 item5)
-        )
+        (not (item-arranged-for-assembly item1 item5))
         (workshop-allocated ?w item5)
-        (not (assembly-lock item5))
+        (assembly-lock item5)
         (agent-carrying-item ?a item1)
     )
     :effect (and 
@@ -145,7 +145,7 @@
         (not (item-arranged-for-assembly item4 item5))
 
         (workshop-allocated ?w item5)
-        (not (assembly-lock item5))
+        (assembly-lock item5)
         (agent-carrying-item ?a item4)
     )
     :effect (and 
@@ -162,10 +162,8 @@
     :precondition (and 
         (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
-        (not (assembly-lock item5))
+        (assembly-lock item5)
 
-        (not (required-roles-arranged-for-assembly item5 ?w))
-   
         (workshop-allocated ?w item5)
    
         (agent-at-facility ?c ?w)
@@ -183,7 +181,7 @@
 (:action assemble_i5_resources_aquired
     :parameters (?w - workshop)
     :precondition (and 
-        (not (assembly-lock item5))
+        (assembly-lock item5)
         (not (assembly-resources-acquired item5))
 
         (item-arranged-for-assembly item1 item5)
@@ -199,15 +197,15 @@
 (:action assemble_i5_car
     :parameters ( ?c - car ?w - workshop)
     :precondition (and
-        (not (assembly-lock item5))
+        (assembly-lock item5)
         (assembly-resources-acquired item5)
         (agent-commited ?c item5) 
     )
     :effect (and 
+        (item-assembled item5)  
         (assemble-main-guy ?c item5)
         (not (assembly-resources-acquired item5))
         (assembly-required-agent ?c ?w)
-        (assembly-lock item5)
     )
 )
 
@@ -217,7 +215,7 @@
     :precondition (and 
         (assembly-resources-acquired item5) 
         (assembly-lock item5)
-        (agent-commited ?d item5) ]
+        (agent-commited ?d item5)
     )
     :effect (and 
         (item-assembled item5)    
