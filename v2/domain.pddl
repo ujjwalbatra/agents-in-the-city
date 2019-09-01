@@ -25,14 +25,14 @@
     (workshop-allocated ?w - workshop ?i - item)
     (item-arranged-for-assembly ?i1 ?i2 - item) ; i1 - item required, i2 - item being assembled
     (agent-providing-item-for-assembly ?a - agent ?item_required ?item_assembled - item)
-    (required-roles-arranged-for-assembly ?i - item ?w - workshop) ; i - item to be assembled, w - workshop at which required roles are present
+    (required-roles-arranged-for-assembly ?i - item) ; i - item to be assembled, w - workshop at which required roles are present
     (item-assembled ?i - item)
     (assemble-main-guy ?a - agent ?i - item) ; a - the agent who gets the item, i - item being assembled
     (assembly-procedure-complete ?i - item) ;  - item that got assembled and everythong is complete
     (assembly-item-consumed ?i1 ?i2 - item) ; i1 - item being condumed i2 - item being assembled
     (assembly-resources-acquired ?item_being_assembled - item)
     (assembly-lock ?item_being_assembled) ; to stop from repeated assembly on same items
-    (assembly-required-agent ?a - agent ?w - workshop)
+    (assembly-required-agent ?a - agent ?i - item)
 )
 
 (:action give
@@ -164,13 +164,18 @@
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
         (assembly-lock item5)
 
+        (not (required-roles-arranged-for-assembly item5))
         (workshop-allocated ?w item5)
    
         (agent-at-facility ?c ?w)
         (agent-at-facility ?d ?w)
     )
     :effect (and 
-        (required-roles-arranged-for-assembly item5 ?w)
+        (required-roles-arranged-for-assembly item5)
+
+        (assembly-required-agent ?c item5)
+        (assembly-required-agent ?d item5)
+
         (agent-commited ?c item5)
         (agent-commited ?d item5)
         (agent-busy ?c)
@@ -187,7 +192,7 @@
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
 
-        (required-roles-arranged-for-assembly item5 ?w)
+        (required-roles-arranged-for-assembly item5)
     )
     :effect (and 
         (assembly-resources-acquired item5)
@@ -200,11 +205,11 @@
         (assembly-lock item5)
         (assembly-resources-acquired item5)
         (agent-commited ?c item5) 
+        (not (item-assembled item5))
     )
     :effect (and 
         (item-assembled item5)  
         (assemble-main-guy ?c item5)
-        (assembly-required-agent ?c ?w)
     )
 )
 
@@ -212,6 +217,7 @@
 (:action assemble_i5_drone
     :parameters ( ?d - drone ?w - workshop)
     :precondition (and 
+        (not (item-assembled item5))
         (assembly-resources-acquired item5) 
         (assembly-lock item5)
         (agent-commited ?d item5)
@@ -265,8 +271,8 @@
         (assembly-lock item5)
         (assembly-item-consumed item1 item5)
         (assembly-item-consumed item4 item5)
-        (assembly-required-agent ?c ?w)
-        (assembly-required-agent ?d ?w)
+        (assembly-required-agent ?c item5)
+        (assembly-required-agent ?d item5)
     )
     :effect (and 
         (not (item-assembled item5))
@@ -274,15 +280,15 @@
         (not (agent-commited ?d item5))
         (not (agent-busy ?c))
         (not (agent-busy ?d))
-        (not (required-roles-arranged-for-assembly item5 ?w))
+        (not (required-roles-arranged-for-assembly item5))
         (not (workshop-allocated ?w item5))
         (not (workshop-busy ?w))
 
         (not (assembly-item-consumed item1 item5))
         (not (assembly-item-consumed item4 item5))
 
-        (not (assembly-required-agent ?c ?w))
-        (not (assembly-required-agent ?d ?w))
+        (not (assembly-required-agent ?c item5))
+        (not (assembly-required-agent ?d item5))
 
         (not (assembly-resources-acquired item5)) 
 
@@ -425,7 +431,7 @@
         (agent-at-facility ?m ?w)
     )
     :effect (and 
-        (required-roles-arranged-for-assembly item6 ?w)
+        (required-roles-arranged-for-assembly item6)
         (agent-commited ?t item6)
         (agent-commited ?m item6)
         (agent-busy ?t)
@@ -444,7 +450,7 @@
         (item-arranged-for-assembly item3 item6)
         (item-arranged-for-assembly item4 item6)
 
-        (required-roles-arranged-for-assembly item6 ?w)
+        (required-roles-arranged-for-assembly item6)
     )
     :effect (and 
         (assembly-resources-acquired item6)
@@ -589,7 +595,7 @@
         (not (agent-commited ?m item6))
         (not (agent-busy ?t))
         (not (agent-busy ?m))
-        (not (required-roles-arranged-for-assembly item6 ?w))
+        (not (required-roles-arranged-for-assembly item6))
         (not (workshop-allocated ?w item6))
         (not (workshop-busy ?w))
 
