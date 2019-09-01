@@ -52,12 +52,20 @@
     (not (item-arranged-for-assembly item2 item6))
     (not (item-arranged-for-assembly item3 item6))
     (not (item-arranged-for-assembly item4 item6))
+    (not (item-arranged-for-assembly item0 item7))
+    (not (item-arranged-for-assembly item1 item7))
+    (not (item-arranged-for-assembly item2 item7))
+    (not (item-arranged-for-assembly item3 item7))
+    (not (item-arranged-for-assembly item4 item7))
 
     (not (assembly-resources-acquired item5))
     (not (assembly-resources-acquired item6))
+    (not (assembly-resources-acquired item7))
+    
 
     (not (required-roles-arranged-for-assembly item5))
     (not (required-roles-arranged-for-assembly item6))
+    (not (required-roles-arranged-for-assembly item7))
 
     (not (workshop-busy workshop0))
     (not (workshop-busy workshop1))
@@ -128,7 +136,7 @@
 )
 
 (:goal (and
-        (agent-carrying-item truck1 item5)
+        (agent-carrying-item truck1 item7)
     )
 )
 
