@@ -225,7 +225,6 @@
     :effect (and 
         (item-assembled item5)    
         (assemble-main-guy ?d item5)
-        (assembly-required-agent ?d ?w)
     )
 )
 
