@@ -2,7 +2,7 @@
 
 (define (domain agents-in-the-city)
 
-(:requirements :strips :fluents :typing :negative-preconditions :equality :adl)
+(:requirements :strips :typing :negative-preconditions :equality :adl)
 
 (:types ; enumerate types and their hierarchy here, e.g. car truck bus - vehicle
     truck motorcycle drone car - agent
@@ -114,7 +114,6 @@
     :effect (and 
         (workshop-busy ?w)
         (workshop-allocated ?w item5)
-        (assembly-lock item5)
     )
 )
 
@@ -124,8 +123,7 @@
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
         (workshop-allocated ?w item5)
-        (assembly-lock item5)
-
+        (not (assembly-lock item5))
         (agent-carrying-item ?a item1)
     )
     :effect (and 
@@ -143,7 +141,7 @@
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
 
         (workshop-allocated ?w item5)
-        (assembly-lock item5)
+        (not (assembly-lock item5))
         (agent-carrying-item ?a item4)
     )
     :effect (and 
@@ -160,7 +158,7 @@
     :precondition (and 
         (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
-        (assembly-lock item5)
+        (not (assembly-lock item5))
    
         (workshop-allocated ?w item5)
    
@@ -179,7 +177,7 @@
 (:action assemble_i5_resources_aquired
     :parameters (?w - workshop)
     :precondition (and 
-        (assembly-lock item5)
+        (not (assembly-lock item5))
 
         (item-arranged-for-assembly item1 item5)
         (item-arranged-for-assembly item4 item5)
@@ -188,13 +186,14 @@
     )
     :effect (and 
         (assembly-resources-acquired item5)
+        (assembly-lock item5)
     )
 )
 
 (:action assemble_i5_car
     :parameters ( ?c - car ?w - workshop)
     :precondition (and
-        (assembly-lock item5)
+        (not (assembly-lock item5))
         (assembly-resources-acquired item5)
         (agent-commited ?c item5) 
     )
@@ -202,6 +201,7 @@
         (assemble-main-guy ?c item5)
         (not (assembly-resources-acquired item5))
         (assembly-required-agent ?c ?w)
+        (assembly-lock item5)
     )
 )
 
