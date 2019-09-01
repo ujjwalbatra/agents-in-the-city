@@ -119,13 +119,13 @@
 
 ; once workshop has been finalised, get item 1 for assembly
 (:action prep_assemble_item5_arrange_item1
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
         (workshop-allocated ?w item5)
         (assembly-lock item5)
+
         (agent-carrying-item ?a item1)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item1 item5)
@@ -137,13 +137,13 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item5_arrange_item4
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
+
         (workshop-allocated ?w item5)
         (assembly-lock item5)
         (agent-carrying-item ?a item4)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item4 item5)
