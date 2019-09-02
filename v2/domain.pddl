@@ -751,7 +751,7 @@
 
 ; when workshop is fixed and item has reached...make sure required roles are there
 (:action prep_assemble_item7_arrange_roles
-    :parameters (?c - truck ?m - motorcycle ?w - workshop)
+    :parameters (?c - car ?m - motorcycle ?w - workshop)
     :precondition (and 
         (assembly-lock item7)
         (or (agent-commited ?c item7) (not (agent-busy ?c)))
