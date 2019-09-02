@@ -50,6 +50,7 @@
         (not (assembly-lock item7))
         (not (assembly-lock item8))
         (not (assembly-lock item9))
+        (not (assembly-lock item10))
     )
     :effect (and 
     (not (agent-carrying-item ?a1 ?i))
@@ -68,6 +69,8 @@
         (not (assembly-lock item5))
         (not (assembly-lock item6))
         (not (assembly-lock item7))
+        (not (assembly-lock item9))
+        (not (assembly-lock item10))
     )
     :effect (and 
         (not (agent-carrying-item ?a ?i))
@@ -82,9 +85,6 @@
         (item-in-resourceNode ?i ?n)
         (agent-at-facility ?a ?n)
         (not (agent-busy ?a))
-        (not (assembly-lock item5))
-        (not (assembly-lock item6))
-        (not (assembly-lock item7))
     )
     :effect (and 
         (agent-carrying-item ?a ?i)
@@ -98,9 +98,6 @@
         (agent-at-facility ?a ?loc1)    
         (not (= ?loc1 ?loc2))
         (not (agent-busy ?a))
-        (not (assembly-lock item5))
-        (not (assembly-lock item6))
-        (not (assembly-lock item7))
     )
     :effect (and (agent-at-facility ?a ?loc2)
             (not (agent-at-facility ?a ?loc1))
@@ -489,7 +486,6 @@
         (assembly-lock item6)
         (agent-commited ?m item6)
         (assembly-resources-acquired item6)
-        (assembly-resources-acquired item6)  
         (assembly-required-agent ?m item6)
     )
     :effect (and 
@@ -816,7 +812,6 @@
     :precondition (and 
         (assembly-lock item7)
         (agent-commited ?m item7)
-        (assembly-resources-acquired item7)
         (assembly-resources-acquired item7)  
         (assembly-required-agent ?m item7)
     )
@@ -1085,7 +1080,6 @@
         (assembly-lock item8)
         (agent-commited ?d item8)
         (assembly-resources-acquired item8)
-        (assembly-resources-acquired item8)  
         (assembly-required-agent ?d item8)
     )
     :effect (and 
@@ -1352,7 +1346,6 @@
         (assembly-lock item9)
         (agent-commited ?m item9)
         (assembly-resources-acquired item9)
-        (assembly-resources-acquired item9)  
         (assembly-required-agent ?m item9)
     )
     :effect (and 
@@ -1501,6 +1494,255 @@
         (not (assemble-main-guy ?a item9))
         (not (assembly-procedure-complete item9))
         (not (assembly-lock item9))
+    )
+)
+
+; item(item10, 7, roles([car, motorcycle]), parts([item6, item1, item5]))
+
+; finalise the workshop for assembly of item 10
+(:action prep_assemble_item10_finalise_workshop
+    :parameters (?w - workshop)
+    :precondition (and 
+        (not (workshop-busy ?w))
+        (not (assembly-lock item10))
+    )
+    :effect (and 
+        (workshop-busy ?w)
+        (workshop-allocated ?w item10)
+        (assembly-lock item10)
+    )
+)
+
+; once workshop has been finalised, get item 1 for assembly
+(:action prep_assemble_item10_arrange_item1
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (or (agent-commited ?a item10) (not (agent-busy ?a)))
+        (not (item-arranged-for-assembly item1 item10))
+        (workshop-allocated ?w item10)
+        (assembly-lock item10)
+        (agent-carrying-item ?a item1)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item1 item10)
+        (agent-providing-item-for-assembly ?a item1 item10)
+        (agent-busy ?a)
+        (agent-commited ?a item10)    
+    )
+)
+
+; once workshop has been finalised, get item 6 for assembly
+(:action prep_assemble_item10_arrange_item6
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+        (or (agent-commited ?a item10) (not (agent-busy ?a)))
+        (workshop-allocated ?w item10)
+        (not (item-arranged-for-assembly item6 item10))
+        (agent-carrying-item ?a item6)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item6 item10)
+        (agent-providing-item-for-assembly ?a item6 item10)
+        (agent-busy ?a)
+        (agent-commited ?a item10)    
+    )
+)
+
+; once workshop has been finalised, get item 5 for assembly
+(:action prep_assemble_item10_arrange_item5
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+        (not (item-arranged-for-assembly item5 item10))
+        (or (agent-commited ?a item10) (not (agent-busy ?a)))
+        (workshop-allocated ?w item10)
+        (agent-carrying-item ?a item5)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item5 item10)
+        (agent-providing-item-for-assembly ?a item5 item10)
+        (agent-busy ?a)
+        (agent-commited ?a item10)    
+    )
+)
+
+
+; when workshop is fixed and item has reached...make sure required roles are there
+(:action prep_assemble_item10_arrange_roles
+    :parameters (?c - car ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+        (or (agent-commited ?c item10) (not (agent-busy ?c)))
+        (or (agent-commited ?m item10) (not (agent-busy ?m)))
+       
+        (workshop-allocated ?w item10)
+        (not (required-roles-arranged-for-assembly item10))
+
+        (agent-at-facility ?c ?w)
+        (agent-at-facility ?m ?w)
+    )
+    :effect (and 
+        (required-roles-arranged-for-assembly item10)
+        (assembly-required-agent ?c item10)
+        (assembly-required-agent ?m item10)
+        (agent-commited ?c item10)
+        (agent-commited ?m item10)
+        (agent-busy ?c)
+        (agent-busy ?m)
+    )
+)
+
+(:action assemble_i10_resources_aquired
+    :parameters (?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+        (not (assembly-resources-acquired item10))
+
+        (item-arranged-for-assembly item1 item10)
+        (item-arranged-for-assembly item6 item10)
+        (item-arranged-for-assembly item5 item10)
+
+        (required-roles-arranged-for-assembly item10)
+    )
+    :effect (and 
+        (assembly-resources-acquired item10)
+    )
+)
+
+(:action assemble_i10_car
+    :parameters ( ?c - car ?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+        (assembly-resources-acquired item10)
+        (agent-commited ?c item10)
+        (not (item-assembled item10))
+        (assembly-required-agent ?c item10)
+    )
+    :effect (and 
+        (item-assembled item10)    
+        (assemble-main-guy ?c item10)
+    )
+)
+
+(:action assemble_i10_motorcycle
+    :parameters ( ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+        (agent-commited ?m item10)
+        (assembly-resources-acquired item10)
+        (assembly-required-agent ?m item10)
+    )
+    :effect (and 
+        (item-assembled item10)     
+        (assemble-main-guy ?m item10)
+    )
+)
+
+(:action consume_item1_assemble_i10
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item10)
+        (agent-providing-item-for-assembly ?a item1 item10)
+        (item-assembled item10)
+        (agent-carrying-item ?a item1)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item1))
+        (not (agent-commited ?a item10))
+        (assembly-item-consumed item1 item10)
+        (not (item-arranged-for-assembly item1 item10))
+        (not (agent-providing-item-for-assembly ?a item1 item10))
+    )
+)
+
+(:action consume_item6_assemble_i10
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item10)
+        (agent-providing-item-for-assembly ?a item6 item10)
+        (item-assembled item10)
+        (agent-carrying-item ?a item6)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item6))
+        (not (agent-commited ?a item10))
+        (assembly-item-consumed item6 item10)
+        (not (item-arranged-for-assembly item6 item10))
+        (not (agent-providing-item-for-assembly ?a item6 item10))
+    )
+)
+
+(:action consume_item5_assemble_i10
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item10)
+        (agent-providing-item-for-assembly ?a item5 item10)
+        (item-assembled item10)
+        (agent-carrying-item ?a item5)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item5))
+        (not (agent-commited ?a item10))
+        (assembly-item-consumed item5 item10)
+        (not (item-arranged-for-assembly item5 item10))
+        (not (agent-providing-item-for-assembly ?a item5 item10))
+    )
+)
+
+
+(:action post_assemble_i10_freeup_everything
+    :parameters (?c - car ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (assembly-lock item10)
+
+        (assembly-item-consumed item1 item10)
+        (assembly-item-consumed item6 item10)
+        (assembly-item-consumed item5 item10)
+
+        (assembly-required-agent ?c item10)
+        (assembly-required-agent ?m item10)
+    )
+    :effect (and 
+
+        (not (item-assembled item10))
+        (not (agent-commited ?c item10))
+        (not (agent-commited ?m item10))
+        (not (agent-busy ?c))
+        (not (agent-busy ?m))
+        (not (required-roles-arranged-for-assembly item10))
+        (not (workshop-allocated ?w item10))
+        (not (workshop-busy ?w))
+
+        (not (assembly-item-consumed item1 item10))
+        (not (assembly-item-consumed item6 item10))
+        (not (assembly-item-consumed item5 item10))
+
+        (not (assembly-required-agent ?c item10))
+        (not (assembly-required-agent ?m item10))
+
+        (assembly-procedure-complete item10)
+    )
+)
+
+(:action release_assembled_item10
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item10)
+        (assembly-procedure-complete item10)
+        (assemble-main-guy ?a item10)
+    )
+    :effect (and 
+        (agent-carrying-item ?a item10)
+        (not (assemble-main-guy ?a item10))
+        (not (assembly-procedure-complete item10))
+        (not (assembly-lock item10))
     )
 )
 
