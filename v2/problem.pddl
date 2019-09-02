@@ -64,23 +64,18 @@
     (not (item-arranged-for-assembly item6 item9))
     (not (item-arranged-for-assembly item7 item9))
     (not (item-arranged-for-assembly item4 item9))
-    (not (item-arranged-for-assembly item6 item10))
-    (not (item-arranged-for-assembly item5 item10))
-    (not (item-arranged-for-assembly item1 item10))
 
     (not (assembly-resources-acquired item5))
     (not (assembly-resources-acquired item6))
     (not (assembly-resources-acquired item7))
     (not (assembly-resources-acquired item8))
     (not (assembly-resources-acquired item9))
-    (not (assembly-resources-acquired item10))
     
     (not (required-roles-arranged-for-assembly item5))
     (not (required-roles-arranged-for-assembly item6))
     (not (required-roles-arranged-for-assembly item7))
     (not (required-roles-arranged-for-assembly item8))
     (not (required-roles-arranged-for-assembly item9))
-    (not (required-roles-arranged-for-assembly item10))
 
     (not (workshop-busy workshop0))
     (not (workshop-busy workshop1))
@@ -92,7 +87,6 @@
     (not (assembly-lock item7))
     (not (assembly-lock item8))
     (not (assembly-lock item9))
-    (not (assembly-lock item10))
 
     (not (agent-busy truck1))
     (not (agent-busy truck2))
