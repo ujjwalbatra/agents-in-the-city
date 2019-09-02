@@ -33,6 +33,7 @@
     (assembly-resources-acquired ?item_being_assembled - item)
     (assembly-lock ?item_being_assembled) ; to stop from repeated assembly on same items
     (assembly-required-agent ?a - agent ?i - item)
+    
 )
 
 (:action give
