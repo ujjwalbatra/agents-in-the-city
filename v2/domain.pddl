@@ -47,6 +47,7 @@
         (not (assembly-lock item5))
         (not (assembly-lock item6))
         (not (assembly-lock item7))
+        (not (assembly-lock item8))
     )
     :effect (and 
     (not (agent-carrying-item ?a1 ?i))
@@ -963,6 +964,214 @@
         (not (assemble-main-guy ?a item7))
         (not (assembly-procedure-complete item7))
         (not (assembly-lock item7))
+    )
+)
+
+; item(item8, 10, roles([car, drone]), parts([item0, item4]))
+
+; finalise the workshop for assembly of item 8
+(:action prep_assemble_item8_finalise_workshop
+    :parameters (?w - workshop)
+    :precondition (and 
+        (not (workshop-busy ?w))
+        (not (assembly-lock item8))
+    )
+    :effect (and 
+        (workshop-busy ?w)
+        (workshop-allocated ?w item8)
+        (assembly-lock item8)
+    )
+)
+
+; once workshop has been finalised, get item 0 for assembly
+(:action prep_assemble_item8_arrange_item0
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (or (not (agent-busy ?a)) (agent-commited ?a item8))
+        (not (item-arranged-for-assembly item0 item8))
+        (workshop-allocated ?w item8)
+        (assembly-lock item8)
+        (agent-carrying-item ?a item0)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item0 item8)
+        (agent-providing-item-for-assembly ?a item0 item8)   
+        (agent-busy ?a)
+        (agent-commited ?a item8) 
+    )
+)
+
+; once workshop has been finalised, get item 4 for assembly
+(:action prep_assemble_item8_arrange_item4
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (assembly-lock item8)
+        (not (item-arranged-for-assembly item4 item8))
+        (or (agent-commited ?a item8) (not (agent-busy ?a)))
+        (workshop-allocated ?w item8)
+        (agent-carrying-item ?a item4)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item4 item8)
+        (agent-providing-item-for-assembly ?a item4 item8)
+        (agent-busy ?a)
+        (agent-commited ?a item8) 
+    )
+)
+
+; when workshop is fixed and item has reached...make sure required roles are there
+(:action prep_assemble_item8_arrange_roles
+    :parameters (?c - car ?d - drone ?w - workshop)
+    :precondition (and 
+        (assembly-lock item8)
+        (or (agent-commited ?c item8) (not (agent-busy ?c)))
+        (or (agent-commited ?d item8) (not (agent-busy ?d)))
+       
+        (workshop-allocated ?w item8)
+        (not (required-roles-arranged-for-assembly item8))
+
+        (agent-at-facility ?c ?w)
+        (agent-at-facility ?d ?w)
+    )
+    :effect (and 
+        (required-roles-arranged-for-assembly item8)
+        (assembly-required-agent ?c item8)
+        (assembly-required-agent ?d item8)
+        (agent-commited ?c item8)
+        (agent-commited ?d item8)
+        (agent-busy ?c)
+        (agent-busy ?d)
+    )
+)
+
+(:action assemble_i8_resources_aquired
+    :parameters (?w - workshop)
+    :precondition (and 
+        (assembly-lock item8)
+        (not (assembly-resources-acquired item8))
+
+        (item-arranged-for-assembly item0 item8)
+        (item-arranged-for-assembly item4 item8)
+
+        (required-roles-arranged-for-assembly item8)
+    )
+    :effect (and 
+        (assembly-resources-acquired item8)
+    )
+)
+
+(:action assemble_i8_car
+    :parameters ( ?c - car ?w - workshop)
+    :precondition (and 
+        (assembly-lock item8)
+        (assembly-resources-acquired item8)
+        (agent-commited ?c item8)
+        (not (item-assembled item8))
+        (assembly-required-agent ?c item8)
+    )
+    :effect (and 
+        (item-assembled item8)    
+        (assemble-main-guy ?c item8)
+    )
+)
+
+(:action assemble_i8_drone
+    :parameters ( ?d - drone ?w - workshop)
+    :precondition (and 
+        (assembly-lock item8)
+        (agent-commited ?d item8)
+        (assembly-resources-acquired item8)
+        (assembly-resources-acquired item8)  
+        (assembly-required-agent ?d item8)
+    )
+    :effect (and 
+        (item-assembled item8)     
+        (assemble-main-guy ?d item8)
+    )
+)
+
+(:action consume_item0_assemble_i8
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item8)
+        (agent-providing-item-for-assembly ?a item0 item8)
+        (item-assembled item8)
+        (agent-carrying-item ?a item0)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item0))
+        (not (agent-commited ?a item8))
+        (assembly-item-consumed item0 item8)
+        (not (item-arranged-for-assembly item0 item8))
+        (not (agent-providing-item-for-assembly ?a item0 item8))
+    )
+)
+
+(:action consume_item4_assemble_i8
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item8)
+        (agent-providing-item-for-assembly ?a item4 item8)
+        (item-assembled item8)
+        (agent-carrying-item ?a item4)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item4))
+        (not (agent-commited ?a item8))
+        (assembly-item-consumed item4 item8)
+        (not (item-arranged-for-assembly item4 item8))
+        (not (agent-providing-item-for-assembly ?a item4 item8))
+    )
+)
+
+(:action post_assemble_i8_freeup_everything
+    :parameters (?c - car ?d - drone ?w - workshop)
+    :precondition (and 
+        (assembly-lock item8)
+
+        (assembly-item-consumed item0 item8)
+        (assembly-item-consumed item4 item8)
+
+        (assembly-required-agent ?c item8)
+        (assembly-required-agent ?d item8)
+    )
+    :effect (and 
+
+        (not (item-assembled item8))
+        (not (agent-commited ?c item8))
+        (not (agent-commited ?d item8))
+        (not (agent-busy ?c))
+        (not (agent-busy ?d))
+        (not (required-roles-arranged-for-assembly item8))
+        (not (workshop-allocated ?w item8))
+        (not (workshop-busy ?w))
+
+        (not (assembly-item-consumed item0 item8))
+        (not (assembly-item-consumed item4 item8))
+
+        (not (assembly-required-agent ?c item8))
+        (not (assembly-required-agent ?d item8))
+
+        (assembly-procedure-complete item8)
+    )
+)
+
+(:action release_assembled_item8
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item8)
+        (assembly-procedure-complete item8)
+        (assemble-main-guy ?a item8)
+    )
+    :effect (and 
+        (agent-carrying-item ?a item8)
+        (not (assemble-main-guy ?a item8))
+        (not (assembly-procedure-complete item8))
+        (not (assembly-lock item8))
     )
 )
 )
