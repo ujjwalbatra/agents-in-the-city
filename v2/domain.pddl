@@ -48,6 +48,7 @@
         (not (assembly-lock item6))
         (not (assembly-lock item7))
         (not (assembly-lock item8))
+        (not (assembly-lock item9))
     )
     :effect (and 
     (not (agent-carrying-item ?a1 ?i))
@@ -1174,4 +1175,332 @@
         (not (assembly-lock item8))
     )
 )
+
+;  item(item9, 6, roles([truck, motorcycle]), parts([item6, item7, item0, item1, item4]))
+; finalise the workshop for assembly of item 9
+(:action prep_assemble_item9_finalise_workshop
+    :parameters (?w - workshop)
+    :precondition (and 
+        (not (workshop-busy ?w))
+        (not (assembly-lock item9))
+    )
+    :effect (and 
+        (workshop-busy ?w)
+        (workshop-allocated ?w item9)
+        (assembly-lock item9)
+    )
+)
+
+; once workshop has been finalised, get item 0 for assembly
+(:action prep_assemble_item9_arrange_item0
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (or (not (agent-busy ?a)) (agent-commited ?a item9))
+        (not (item-arranged-for-assembly item0 item9))
+        (workshop-allocated ?w item9)
+        (assembly-lock item9)
+        (agent-carrying-item ?a item0)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item0 item9)
+        (agent-providing-item-for-assembly ?a item0 item9)   
+        (agent-busy ?a)
+        (agent-commited ?a item9) 
+    )
+)
+
+; once workshop has been finalised, get item 1 for assembly
+(:action prep_assemble_item9_arrange_item1
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (or (agent-commited ?a item9) (not (agent-busy ?a)))
+        (not (item-arranged-for-assembly item1 item9))
+        (workshop-allocated ?w item9)
+        (assembly-lock item9)
+        (agent-carrying-item ?a item1)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item1 item9)
+        (agent-providing-item-for-assembly ?a item1 item9)
+        (agent-busy ?a)
+        (agent-commited ?a item9)    
+    )
+)
+
+; once workshop has been finalised, get item 6 for assembly
+(:action prep_assemble_item9_arrange_item6
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (or (agent-commited ?a item9) (not (agent-busy ?a)))
+        (workshop-allocated ?w item9)
+        (not (item-arranged-for-assembly item6 item9))
+        (agent-carrying-item ?a item6)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item6 item9)
+        (agent-providing-item-for-assembly ?a item6 item9)
+        (agent-busy ?a)
+        (agent-commited ?a item9)    
+    )
+)
+
+; once workshop has been finalised, get item 7 for assembly
+(:action prep_assemble_item9_arrange_item7
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (not (item-arranged-for-assembly item7 item9))
+        (or (agent-commited ?a item9) (not (agent-busy ?a)))
+        (workshop-allocated ?w item9)
+        (agent-carrying-item ?a item7)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item7 item9)
+        (agent-providing-item-for-assembly ?a item7 item9)
+        (agent-busy ?a)
+        (agent-commited ?a item9)    
+    )
+)
+
+; once workshop has been finalised, get item 4 for assembly
+(:action prep_assemble_item9_arrange_item4
+    :parameters (?a - agent ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (not (item-arranged-for-assembly item4 item9))
+        (or (agent-commited ?a item9) (not (agent-busy ?a)))
+        (workshop-allocated ?w item9)
+        (agent-carrying-item ?a item4)
+        (agent-at-facility ?a ?w)
+    )
+    :effect (and 
+        (item-arranged-for-assembly item4 item9)
+        (agent-providing-item-for-assembly ?a item4 item9)
+        (agent-busy ?a)
+        (agent-commited ?a item9) 
+    )
+)
+
+; when workshop is fixed and item has reached...make sure required roles are there
+(:action prep_assemble_item9_arrange_roles
+    :parameters (?t - truck ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (or (agent-commited ?t item9) (not (agent-busy ?t)))
+        (or (agent-commited ?m item9) (not (agent-busy ?m)))
+       
+        (workshop-allocated ?w item9)
+        (not (required-roles-arranged-for-assembly item9))
+
+        (agent-at-facility ?t ?w)
+        (agent-at-facility ?m ?w)
+    )
+    :effect (and 
+        (required-roles-arranged-for-assembly item9)
+        (assembly-required-agent ?t item9)
+        (assembly-required-agent ?m item9)
+        (agent-commited ?t item9)
+        (agent-commited ?m item9)
+        (agent-busy ?t)
+        (agent-busy ?m)
+    )
+)
+
+(:action assemble_i9_resources_aquired
+    :parameters (?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (not (assembly-resources-acquired item9))
+
+        (item-arranged-for-assembly item0 item9)
+        (item-arranged-for-assembly item1 item9)
+        (item-arranged-for-assembly item6 item9)
+        (item-arranged-for-assembly item7 item9)
+        (item-arranged-for-assembly item4 item9)
+
+        (required-roles-arranged-for-assembly item9)
+    )
+    :effect (and 
+        (assembly-resources-acquired item9)
+    )
+)
+
+(:action assemble_i9_truck
+    :parameters ( ?t - truck ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (assembly-resources-acquired item9)
+        (agent-commited ?t item9)
+        (not (item-assembled item9))
+        (assembly-required-agent ?t item9)
+    )
+    :effect (and 
+        (item-assembled item9)    
+        (assemble-main-guy ?t item9)
+    )
+)
+
+(:action assemble_i9_motorcycle
+    :parameters ( ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+        (agent-commited ?m item9)
+        (assembly-resources-acquired item9)
+        (assembly-resources-acquired item9)  
+        (assembly-required-agent ?m item9)
+    )
+    :effect (and 
+        (item-assembled item9)     
+        (assemble-main-guy ?m item9)
+    )
+)
+
+(:action consume_item0_assemble_i9
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item9)
+        (agent-providing-item-for-assembly ?a item0 item9)
+        (item-assembled item9)
+        (agent-carrying-item ?a item0)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item0))
+        (not (agent-commited ?a item9))
+        (assembly-item-consumed item0 item9)
+        (not (item-arranged-for-assembly item0 item9))
+        (not (agent-providing-item-for-assembly ?a item0 item9))
+    )
+)
+
+(:action consume_item1_assemble_i9
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item9)
+        (agent-providing-item-for-assembly ?a item1 item9)
+        (item-assembled item9)
+        (agent-carrying-item ?a item1)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item1))
+        (not (agent-commited ?a item9))
+        (assembly-item-consumed item1 item9)
+        (not (item-arranged-for-assembly item1 item9))
+        (not (agent-providing-item-for-assembly ?a item1 item9))
+    )
+)
+
+(:action consume_item6_assemble_i9
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item9)
+        (agent-providing-item-for-assembly ?a item6 item9)
+        (item-assembled item9)
+        (agent-carrying-item ?a item6)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item6))
+        (not (agent-commited ?a item9))
+        (assembly-item-consumed item6 item9)
+        (not (item-arranged-for-assembly item6 item9))
+        (not (agent-providing-item-for-assembly ?a item6 item9))
+    )
+)
+
+(:action consume_item7_assemble_i9
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item9)
+        (agent-providing-item-for-assembly ?a item7 item9)
+        (item-assembled item9)
+        (agent-carrying-item ?a item7)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item7))
+        (not (agent-commited ?a item9))
+        (assembly-item-consumed item7 item9)
+        (not (item-arranged-for-assembly item7 item9))
+        (not (agent-providing-item-for-assembly ?a item7 item9))
+    )
+)
+
+(:action consume_item4_assemble_i9
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item9)
+        (agent-providing-item-for-assembly ?a item4 item9)
+        (item-assembled item9)
+        (agent-carrying-item ?a item4)
+    )
+    :effect (and 
+        (not (agent-busy ?a))
+        (not (agent-carrying-item ?a item4))
+        (not (agent-commited ?a item9))
+        (assembly-item-consumed item4 item9)
+        (not (item-arranged-for-assembly item4 item9))
+        (not (agent-providing-item-for-assembly ?a item4 item9))
+    )
+)
+
+(:action post_assemble_i9_freeup_everything
+    :parameters (?t - truck ?m - motorcycle ?w - workshop)
+    :precondition (and 
+        (assembly-lock item9)
+
+        (assembly-item-consumed item0 item9)
+        (assembly-item-consumed item1 item9)
+        (assembly-item-consumed item6 item9)
+        (assembly-item-consumed item7 item9)
+        (assembly-item-consumed item4 item9)
+
+        (assembly-required-agent ?t item9)
+        (assembly-required-agent ?m item9)
+    )
+    :effect (and 
+
+        (not (item-assembled item9))
+        (not (agent-commited ?t item9))
+        (not (agent-commited ?m item9))
+        (not (agent-busy ?t))
+        (not (agent-busy ?m))
+        (not (required-roles-arranged-for-assembly item9))
+        (not (workshop-allocated ?w item9))
+        (not (workshop-busy ?w))
+
+        (not (assembly-item-consumed item0 item9))
+        (not (assembly-item-consumed item1 item9))
+        (not (assembly-item-consumed item6 item9))
+        (not (assembly-item-consumed item7 item9))
+        (not (assembly-item-consumed item4 item9))
+
+        (not (assembly-required-agent ?t item9))
+        (not (assembly-required-agent ?m item9))
+
+        (assembly-procedure-complete item9)
+    )
+)
+
+(:action release_assembled_item9
+    :parameters (?a - agent)
+    :precondition (and 
+        (assembly-lock item9)
+        (assembly-procedure-complete item9)
+        (assemble-main-guy ?a item9)
+    )
+    :effect (and 
+        (agent-carrying-item ?a item9)
+        (not (assemble-main-guy ?a item9))
+        (not (assembly-procedure-complete item9))
+        (not (assembly-lock item9))
+    )
+)
+
 )
