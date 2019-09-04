@@ -1263,7 +1263,7 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item9_arrange_item4
-    :parameters (?a - agent
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item9)
         (not (item-arranged-for-assembly item4 item9))
