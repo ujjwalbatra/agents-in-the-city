@@ -19,6 +19,7 @@
     (agent-at-facility ?a - agent ?f - facility)  ; agent is at facility l
     (agent-carrying-item ?a - agent ?i - item)  ; agent is carrying item i
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
+)
 
 (:action give
     :parameters (?a1 ?a2 - agent ?i - item ?f - facility)

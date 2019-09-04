@@ -139,14 +139,13 @@
 
 ; once workshop has been finalised, get item 1 for assembly
 (:action prep_assemble_item5_arrange_item1
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
+        (exists (?w - workshop) (and (workshop-allocated ?w item5) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item1 item5))
-        (workshop-allocated ?w item5)
         (assembly-lock item5)
         (agent-carrying-item ?a item1)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item1 item5)
@@ -158,12 +157,11 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item5_arrange_item4
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item5) (not (agent-busy ?a)))
         (not (item-arranged-for-assembly item4 item5))
-
-        (workshop-allocated ?w item5)
+        (exists (?w - workshop) (and (workshop-allocated ?w item5) (agent-at-facility ?a ?w)))
         (assembly-lock item5)
         (agent-carrying-item ?a item4)
     )
@@ -177,17 +175,15 @@
 
 ; when workshop is fixed and item has reached...make sure required roles are there
 (:action prep_assemble_item5_arrange_roles
-    :parameters (?c - car ?d - drone ?w - workshop)
+    :parameters (?c - car ?d - drone)
     :precondition (and 
         (or (agent-commited ?c item5) (not (agent-busy ?c)))
         (or (agent-commited ?d item5) (not (agent-busy ?d)))
         (assembly-lock item5)
 
+        (exists (?w - workshop) (and (workshop-allocated ?w item5) (agent-at-facility ?c ?w) (agent-at-facility ?d ?w)))
+
         (not (required-roles-arranged-for-assembly item5))
-        (workshop-allocated ?w item5)
-   
-        (agent-at-facility ?c ?w)
-        (agent-at-facility ?d ?w)
     )
     :effect (and 
         (required-roles-arranged-for-assembly item5)
@@ -347,14 +343,13 @@
 
 ; once workshop has been finalised, get item 0 for assembly
 (:action prep_assemble_item6_arrange_item0
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (not (agent-busy ?a)) (agent-commited ?a item6))
+        (exists (?w - workshop) (and (workshop-allocated ?w item6) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item0 item6))
-        (workshop-allocated ?w item6)
         (assembly-lock item6)
         (agent-carrying-item ?a item0)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item0 item6)
@@ -366,14 +361,13 @@
 
 ; once workshop has been finalised, get item 1 for assembly
 (:action prep_assemble_item6_arrange_item1
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
+        (exists (?w - workshop) (and (workshop-allocated ?w item6) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item1 item6))
-        (workshop-allocated ?w item6)
         (assembly-lock item6)
         (agent-carrying-item ?a item1)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item1 item6)
@@ -385,14 +379,13 @@
 
 ; once workshop has been finalised, get item 2 for assembly
 (:action prep_assemble_item6_arrange_item2
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
-        (workshop-allocated ?w item6)
+        (exists (?w - workshop) (and (workshop-allocated ?w item6) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item2 item6))
         (agent-carrying-item ?a item2)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item2 item6)
@@ -404,14 +397,13 @@
 
 ; once workshop has been finalised, get item 3 for assembly
 (:action prep_assemble_item6_arrange_item3
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
         (not (item-arranged-for-assembly item3 item6))
+        (exists (?w - workshop) (and (workshop-allocated ?w item6) (agent-at-facility ?a ?w)))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
-        (workshop-allocated ?w item6)
         (agent-carrying-item ?a item3)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item3 item6)
@@ -423,14 +415,13 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item6_arrange_item4
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item6)
         (not (item-arranged-for-assembly item4 item6))
         (or (agent-commited ?a item6) (not (agent-busy ?a)))
-        (workshop-allocated ?w item6)
+        (exists (?w - workshop) (and (workshop-allocated ?w item6) (agent-at-facility ?a ?w)))
         (agent-carrying-item ?a item4)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item4 item6)
@@ -442,17 +433,16 @@
 
 ; when workshop is fixed and item has reached...make sure required roles are there
 (:action prep_assemble_item6_arrange_roles
-    :parameters (?t - truck ?m - motorcycle ?w - workshop)
+    :parameters (?t - truck ?m - motorcycle)
     :precondition (and 
         (assembly-lock item6)
         (or (agent-commited ?t item6) (not (agent-busy ?t)))
         (or (agent-commited ?m item6) (not (agent-busy ?m)))
        
-        (workshop-allocated ?w item6)
         (not (required-roles-arranged-for-assembly item6))
 
-        (agent-at-facility ?t ?w)
-        (agent-at-facility ?m ?w)
+        (exists (?w - workshop) (and (workshop-allocated ?w item6) (agent-at-facility ?t ?w) (agent-at-facility ?m ?w)))
+
     )
     :effect (and 
         (required-roles-arranged-for-assembly item6)
@@ -485,7 +475,7 @@
 )
 
 (:action assemble_i6_truck
-    :parameters (?t - truck)
+    :parameters ( ?t - truck)
     :precondition (and 
         (assembly-lock item6)
         (assembly-resources-acquired item6)
@@ -500,7 +490,7 @@
 )
 
 (:action assemble_i6_motorcycle
-    :parameters (?m - motorcycle)
+    :parameters ( ?m - motorcycle)
     :precondition (and 
         (assembly-lock item6)
         (agent-commited ?m item6)
@@ -675,14 +665,13 @@
 
 ; once workshop has been finalised, get item 0 for assembly
 (:action prep_assemble_item7_arrange_item0
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (not (agent-busy ?a)) (agent-commited ?a item7))
         (not (item-arranged-for-assembly item0 item7))
-        (workshop-allocated ?w item7)
+        (exists (?w - workshop) (and (workshop-allocated ?w item7) (agent-at-facility ?a ?w)))
         (assembly-lock item7)
         (agent-carrying-item ?a item0)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item0 item7)
@@ -694,14 +683,13 @@
 
 ; once workshop has been finalised, get item 1 for assembly
 (:action prep_assemble_item7_arrange_item1
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
         (not (item-arranged-for-assembly item1 item7))
-        (workshop-allocated ?w item7)
+        (exists (?w - workshop) (and (workshop-allocated ?w item7) (agent-at-facility ?a ?w)))
         (assembly-lock item7)
         (agent-carrying-item ?a item1)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item1 item7)
@@ -713,14 +701,13 @@
 
 ; once workshop has been finalised, get item 2 for assembly
 (:action prep_assemble_item7_arrange_item2
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item7)
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
-        (workshop-allocated ?w item7)
+        (exists (?w - workshop) (and (workshop-allocated ?w item7) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item2 item7))
         (agent-carrying-item ?a item2)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item2 item7)
@@ -732,14 +719,13 @@
 
 ; once workshop has been finalised, get item 3 for assembly
 (:action prep_assemble_item7_arrange_item3
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item7)
         (not (item-arranged-for-assembly item3 item7))
+        (exists (?w - workshop) (and (workshop-allocated ?w item7) (agent-at-facility ?a ?w)))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
-        (workshop-allocated ?w item7)
         (agent-carrying-item ?a item3)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item3 item7)
@@ -751,14 +737,13 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item7_arrange_item4
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item7)
         (not (item-arranged-for-assembly item4 item7))
+        (exists (?w - workshop) (and (workshop-allocated ?w item7) (agent-at-facility ?a ?w)))
         (or (agent-commited ?a item7) (not (agent-busy ?a)))
-        (workshop-allocated ?w item7)
         (agent-carrying-item ?a item4)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item4 item7)
@@ -770,17 +755,17 @@
 
 ; when workshop is fixed and item has reached...make sure required roles are there
 (:action prep_assemble_item7_arrange_roles
-    :parameters (?c - car ?m - motorcycle ?w - workshop)
+    :parameters (?c - car ?m - motorcycle)
     :precondition (and 
         (assembly-lock item7)
         (or (agent-commited ?c item7) (not (agent-busy ?c)))
         (or (agent-commited ?m item7) (not (agent-busy ?m)))
-       
-        (workshop-allocated ?w item7)
+
+        (exists (?w - workshop) (and (workshop-allocated ?w item7) (agent-at-facility ?c ?w) (agent-at-facility ?m ?w)))
+        
         (not (required-roles-arranged-for-assembly item7))
 
-        (agent-at-facility ?c ?w)
-        (agent-at-facility ?m ?w)
+        
     )
     :effect (and 
         (required-roles-arranged-for-assembly item7)
@@ -1003,14 +988,13 @@
 
 ; once workshop has been finalised, get item 0 for assembly
 (:action prep_assemble_item8_arrange_item0
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (not (agent-busy ?a)) (agent-commited ?a item8))
+        (exists (?w - workshop) (and (workshop-allocated ?w item8) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item0 item8))
-        (workshop-allocated ?w item8)
         (assembly-lock item8)
         (agent-carrying-item ?a item0)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item0 item8)
@@ -1022,14 +1006,13 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item8_arrange_item4
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item8)
         (not (item-arranged-for-assembly item4 item8))
+        (exists (?w - workshop) (and (workshop-allocated ?w item8) (agent-at-facility ?a ?w)))
         (or (agent-commited ?a item8) (not (agent-busy ?a)))
-        (workshop-allocated ?w item8)
         (agent-carrying-item ?a item4)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item4 item8)
@@ -1041,17 +1024,15 @@
 
 ; when workshop is fixed and item has reached...make sure required roles are there
 (:action prep_assemble_item8_arrange_roles
-    :parameters (?c - car ?d - drone ?w - workshop)
+    :parameters (?c - car ?d - drone)
     :precondition (and 
         (assembly-lock item8)
         (or (agent-commited ?c item8) (not (agent-busy ?c)))
         (or (agent-commited ?d item8) (not (agent-busy ?d)))
        
-        (workshop-allocated ?w item8)
-        (not (required-roles-arranged-for-assembly item8))
+        (exists (?w - workshop) (and (workshop-allocated ?w item8) (agent-at-facility ?c ?w) (agent-at-facility ?d ?w)))
 
-        (agent-at-facility ?c ?w)
-        (agent-at-facility ?d ?w)
+        (not (required-roles-arranged-for-assembly item8))
     )
     :effect (and 
         (required-roles-arranged-for-assembly item8)
@@ -1210,14 +1191,13 @@
 
 ; once workshop has been finalised, get item 0 for assembly
 (:action prep_assemble_item9_arrange_item0
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (not (agent-busy ?a)) (agent-commited ?a item9))
         (not (item-arranged-for-assembly item0 item9))
-        (workshop-allocated ?w item9)
+        (exists (?w - workshop) (and (workshop-allocated ?w item9) (agent-at-facility ?a ?w)))
         (assembly-lock item9)
         (agent-carrying-item ?a item0)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item0 item9)
@@ -1229,14 +1209,13 @@
 
 ; once workshop has been finalised, get item 1 for assembly
 (:action prep_assemble_item9_arrange_item1
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (or (agent-commited ?a item9) (not (agent-busy ?a)))
         (not (item-arranged-for-assembly item1 item9))
-        (workshop-allocated ?w item9)
+        (exists (?w - workshop) (and (workshop-allocated ?w item9) (agent-at-facility ?a ?w)))
         (assembly-lock item9)
         (agent-carrying-item ?a item1)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item1 item9)
@@ -1248,14 +1227,13 @@
 
 ; once workshop has been finalised, get item 6 for assembly
 (:action prep_assemble_item9_arrange_item6
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item9)
         (or (agent-commited ?a item9) (not (agent-busy ?a)))
-        (workshop-allocated ?w item9)
+        (exists (?w - workshop) (and (workshop-allocated ?w item9) (agent-at-facility ?a ?w)))
         (not (item-arranged-for-assembly item6 item9))
         (agent-carrying-item ?a item6)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item6 item9)
@@ -1267,14 +1245,13 @@
 
 ; once workshop has been finalised, get item 7 for assembly
 (:action prep_assemble_item9_arrange_item7
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent)
     :precondition (and 
         (assembly-lock item9)
         (not (item-arranged-for-assembly item7 item9))
         (or (agent-commited ?a item9) (not (agent-busy ?a)))
-        (workshop-allocated ?w item9)
+        (exists (?w - workshop) (and (workshop-allocated ?w item9) (agent-at-facility ?a ?w)))
         (agent-carrying-item ?a item7)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item7 item9)
@@ -1286,14 +1263,13 @@
 
 ; once workshop has been finalised, get item 4 for assembly
 (:action prep_assemble_item9_arrange_item4
-    :parameters (?a - agent ?w - workshop)
+    :parameters (?a - agent
     :precondition (and 
         (assembly-lock item9)
         (not (item-arranged-for-assembly item4 item9))
         (or (agent-commited ?a item9) (not (agent-busy ?a)))
-        (workshop-allocated ?w item9)
+        (exists (?w - workshop) (and (workshop-allocated ?w item9) (agent-at-facility ?a ?w)))
         (agent-carrying-item ?a item4)
-        (agent-at-facility ?a ?w)
     )
     :effect (and 
         (item-arranged-for-assembly item4 item9)
@@ -1305,17 +1281,14 @@
 
 ; when workshop is fixed and item has reached...make sure required roles are there
 (:action prep_assemble_item9_arrange_roles
-    :parameters (?t - truck ?m - motorcycle ?w - workshop)
+    :parameters (?t - truck ?m - motorcycle)
     :precondition (and 
         (assembly-lock item9)
         (or (agent-commited ?t item9) (not (agent-busy ?t)))
         (or (agent-commited ?m item9) (not (agent-busy ?m)))
        
-        (workshop-allocated ?w item9)
+        (exists (?w - workshop) (and (workshop-allocated ?w item9) (agent-at-facility ?t ?w) (agent-at-facility ?m ?w)))
         (not (required-roles-arranged-for-assembly item9))
-
-        (agent-at-facility ?t ?w)
-        (agent-at-facility ?m ?w)
     )
     :effect (and 
         (required-roles-arranged-for-assembly item9)
@@ -1348,7 +1321,7 @@
 )
 
 (:action assemble_i9_truck
-    :parameters (?t - truck)
+    :parameters ( ?t - truck)
     :precondition (and 
         (assembly-lock item9)
         (assembly-resources-acquired item9)
@@ -1363,7 +1336,7 @@
 )
 
 (:action assemble_i9_motorcycle
-    :parameters (?m - motorcycle)
+    :parameters ( ?m - motorcycle)
     :precondition (and 
         (assembly-lock item9)
         (agent-commited ?m item9)
