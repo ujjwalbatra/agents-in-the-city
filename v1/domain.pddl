@@ -2,7 +2,7 @@
 
 (define (domain agents-in-the-city)
 
-(:requirements :strips :typing :negative-preconditions :equality)
+(:requirements :strips :typing)
 
 (:types ; enumerate types and their hierarchy here, e.g. car truck bus - vehicle
     truck motorcycle drone car - agent

@@ -1,8 +1,6 @@
-; domain file of agents in the city domain on step 131 to solve the job 12
-
 (define (domain agents-in-the-city)
 
-(:requirements :strips :typing :negative-preconditions :equality :adl)
+(:requirements :strips :typing)
 
 (:types ; enumerate types and their hierarchy here, e.g. car truck bus - vehicle
     truck motorcycle drone car - agent
@@ -12,7 +10,6 @@
 
 ; un-comment following line if constants are needed
 ;(:constants )
-
 
 (:predicates ;todo: define predicates here
     (item-in-resourceNode ?i - item ?rn - resourceNode) ; item i is in respource node rn

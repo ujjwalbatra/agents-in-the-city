@@ -12,8 +12,7 @@ There are various directories for the following purposes:
     * Problem 1 - Problem that works.
     * Problem 2 - Problems that do not scale and gets stuck while grounding.
   * Output files:
-    * execution1.details - Exectution details of problem 1 on [siw plus planer](http://lapkt.org/index.php?title=Documentation#SIW_Plus)
-    * output1.txt - Ouput of problem 1 on [siw plus planner](http://lapkt.org/index.php?title=Documentation#SIW_Plus)
+    * execution.details - Exectution details of problem 1 on [siw plus planer](http://lapkt.org/index.php?title=Documentation#SIW_Plus) and Ouput of problem 1 on [siw plus planner](http://lapkt.org/index.php?title=Documentation#SIW_Plus)
 
 * v2: New modeling with actions with less variables (fixes scalablity)
 
@@ -22,7 +21,6 @@ There are various directories for the following purposes:
 Models have been developed using [Visual Studio Code](https://code.visualstudio.com/) IDE with the [PDDL extension](https://marketplace.visualstudio.com/items?itemName=jan-dolejsi.pddl).
 
 The planner used on it is, as of August 2019, [SIW Plus-then-BFS with FF parser](https://github.com/LAPKT-dev/LAPKT-public/tree/master/planners/siw_plus-then-bfs_f-ffparser) from LAPTK.
-
 
 ## Running some models
 
