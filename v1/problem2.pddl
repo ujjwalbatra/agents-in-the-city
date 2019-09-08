@@ -24,8 +24,6 @@
 
     ; initialising all resource nodes
     node0 node1 node2 node3 node4 node5 node6 node7 node8 node9 node10 - resourceNode
-
-    sh0 sh1 sh2 sh3 sh4 sh5 sh6 - shop
 )
 
 (:init

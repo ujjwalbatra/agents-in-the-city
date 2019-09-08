@@ -8,6 +8,11 @@
     workshop storage resourceNode shop - facility
 )
 
+(:functions
+    (distance ?from ?to)
+    (total-cost)
+)
+
 ; un-comment following line if constants are needed
 ;(:constants )
 
@@ -56,8 +61,9 @@
         (not (assembly-required-agent ?a2 item10))
     )
     :effect (and 
-    (not (agent-carrying-item ?a1 ?i))
-    (agent-carrying-item ?a2 ?i)
+        (not (agent-carrying-item ?a1 ?i))
+        (agent-carrying-item ?a2 ?i)
+        (increase (total-cost) 10)
     )
 )
 
@@ -98,6 +104,7 @@
     )
     :effect (and 
         (agent-carrying-item ?a ?i)
+        (increase (total-cost) 10)
     )
 )
 
@@ -115,8 +122,10 @@
         (not (assembly-required-agent ?a item9))
         (not (assembly-required-agent ?a item10))
     )
-    :effect (and (agent-at-facility ?a ?loc2)
-            (not (agent-at-facility ?a ?loc1))
+    :effect (and 
+        (agent-at-facility ?a ?loc2)
+        (not (agent-at-facility ?a ?loc1))
+        (increase (total-cost) (distance ?loc1 ?loc2))
     )
 )
 ; item(item5, 5, roles([car, drone]), parts([item1, item4]))
