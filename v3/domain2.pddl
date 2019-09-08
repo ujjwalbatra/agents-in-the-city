@@ -28,19 +28,19 @@
     :precondition (and 
         (agent-at-facility ?a ?loc1)    
         (not (= ?loc1 ?loc2))
-        (not (agent-busy ?a))
-        (not (assembly-required-agent ?a item5))
-        (not (assembly-required-agent ?a item6))
-        (not (assembly-required-agent ?a item7))
-        (not (assembly-required-agent ?a item8))
-        (not (assembly-required-agent ?a item9))
-        (not (assembly-required-agent ?a item10))
     )
     :effect (and (agent-at-facility ?a ?loc2)
             (not (agent-at-facility ?a ?loc1))
             (increase (total-cost) (distance ?loc1 ?loc2))
-            (mission-successful ?a)
     )
 )
+
+(:action fake
+    :parameters (?a - agent)
+    :precondition (and 
+        (or (agent-at-facility ?a facility2) (agent-at-facility ?a facility3)))
+    :effect (and (mission-successful ?a))
+)
+
 
 )
