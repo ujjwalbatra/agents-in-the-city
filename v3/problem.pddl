@@ -2,16 +2,16 @@
 
 (:objects 
     ; initialising all trucks
-    truck1 truck2 truck3 truck4 truck5 truck6 truck7 truck8 truck9 truck10 truck11 truck12 - truck 
+    truck1 truck2 truck3 truck4 - truck 
 
     ; initialising all motorcycles    
-    motorcycle1 motorcycle2 motorcycle3 motorcycle4 motorcycle5 motorcycle6 - motorcycle
+    motorcycle1 motorcycle2 motorcycle3 motorcycle4 - motorcycle
 
     ; initialising all drones
     drone1 drone2 drone3 drone4 - drone
 
     ; initialising all cars
-    car1 car2 car3 car4 car5 car6 car7 car8 car9 car10 - car
+    car1 car2 car3 car4 - car
 
     ; initialising all items
     item0 item1 item2 item3 item4 item5 item6 item7 item8 item9 item10 - item
@@ -446,6 +446,27 @@
     (= (distance node10 node8) 95)
     (= (distance node9 node10) 15)
     (= (distance node10 node9) 15)
+
+    (= (distance workshop0 workshop0) 0)
+    (= (distance workshop1 workshop1) 0)
+    (= (distance workshop2 workshop2) 0)
+    (= (distance workshop3 workshop3) 0)
+    (= (distance storage0 storage0) 0)
+    (= (distance storage1 storage1) 0)
+    (= (distance storage2 storage2) 0)
+    (= (distance storage3 storage3) 0)
+    (= (distance storage4 storage4) 0)
+    (= (distance node0 node0) 0)
+    (= (distance node1 node1) 0)
+    (= (distance node2 node2) 0)
+    (= (distance node3 node3) 0)
+    (= (distance node4 node4) 0)
+    (= (distance node5 node5) 0)
+    (= (distance node6 node6) 0)
+    (= (distance node7 node7) 0)
+    (= (distance node8 node8) 0)
+    (= (distance node9 node9) 0)
+
 
 )
 

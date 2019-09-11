@@ -2,16 +2,16 @@
 
 (:objects 
     ; initialising all trucks
-    truck1 truck2 truck3 truck4 truck5 truck6 truck7 truck8 truck9 truck10 truck11 truck12 - truck 
+    truck1 truck2 truck3 truck4 - truck 
 
     ; initialising all motorcycles    
-    motorcycle1 motorcycle2 motorcycle3 motorcycle4 motorcycle5 motorcycle6 - motorcycle
+    motorcycle1 motorcycle2 motorcycle3 motorcycle4 - motorcycle
 
     ; initialising all drones
     drone1 drone2 drone3 drone4 - drone
 
     ; initialising all cars
-    car1 car2 car3 car4 car5 car6 car7 car8 car9 car10 - car
+    car1 car2 car3 car4 - car
 
     ; initialising all items
     item0 item1 item2 item3 item4 item5 item6 item7 item8 item9 item10 - item

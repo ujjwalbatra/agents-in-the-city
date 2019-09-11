@@ -3,13 +3,13 @@
 (:requirements :strips :typing)
 
 (:types ; enumerate types and their hierarchy here, e.g. car truck bus - vehicle
+    item agent faciltiy
     truck motorcycle drone car - agent
-    item
     workshop storage resourceNode shop - facility
 )
 
 (:functions
-    (distance ?from ?to)
+    (distance ?from - facility ?to - facility)
     (total-cost)
 )
 

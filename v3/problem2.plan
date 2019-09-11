@@ -1,8 +1,0 @@
-;;!domain: test
-;;!problem: testing
-
-0.00100: (goto agent1 facility1 facility3)
-0.00200: (fake agent1)
-
-; Makespan: 0.002
-; Cost: 0.002

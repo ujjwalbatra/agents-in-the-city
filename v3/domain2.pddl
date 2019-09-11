@@ -3,7 +3,7 @@
 (define (domain test)
 
 ;remove requirements that are not needed
-(:requirements :strips :fluents  :typing :conditional-effects :negative-preconditions :equality)
+(:requirements :strips   :typing :conditional-effects :negative-preconditions :equality)
 
 (:types ;todo: enumerate types and their hierarchy here, e.g. car truck bus - vehicle
     facility

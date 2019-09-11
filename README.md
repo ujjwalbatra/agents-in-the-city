@@ -52,5 +52,3 @@ Nodes generated during search: 10108
 Nodes expanded during search: 9402
 IW search completed
 ```
-
-
