@@ -81,7 +81,7 @@
     )
     :effect (and 
         (decrease (agent-carrying-item ?a ?i) 1)
-        (increase (item-in-storage ?i ?s) 1)
+        (increase(item-in-storage ?i ?s) 1)
     )
 )
 
@@ -920,7 +920,7 @@
         (assembly-lock item7)
         (agent-providing-item-for-assembly ?a item4 item7)
         (item-assembled item7)
-        (>= (agent-carrying-item ?a item4)
+        (>= (agent-carrying-item ?a item4) 1)
     )
     :effect (and 
         (not (agent-busy ?a))
