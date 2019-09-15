@@ -299,6 +299,24 @@
     (= (item-in-storage item10 storage3) 0)
     (= (item-in-storage item10 storage4) 0)
 
+    (= (agent-capacity truck1 ) 100 )
+    (= (agent-capacity truck2 ) 100 )
+    (= (agent-capacity truck3 ) 100 )
+    (= (agent-capacity truck4 ) 100 )
+    (= (agent-capacity motorcycle1 ) 30 )
+    (= (agent-capacity motorcycle2 ) 30 )
+    (= (agent-capacity motorcycle3 ) 30 )
+    (= (agent-capacity motorcycle4 ) 30 )
+    (= (agent-capacity drone1 ) 15 )
+    (= (agent-capacity drone2 ) 15 )
+    (= (agent-capacity drone3 ) 15 )
+    (= (agent-capacity drone4 ) 15 )
+    (= (agent-capacity car1 ) 50 )
+    (= (agent-capacity car2 ) 50 )
+    (= (agent-capacity car3 ) 50 )
+    (= (agent-capacity car4 ) 50 )
+
+
 )
 
 (:goal (and

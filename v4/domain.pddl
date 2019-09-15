@@ -34,6 +34,7 @@
 
 (:functions
     (agent-carrying-item ?a - agent ?i - item)  ; agent is carrying item i
+    (agent-capacity ?a - agent) ; how much an agent can carry
     (item-in-storage ?i - item ?s - storage)  ; item is in storage
 )
 
@@ -81,7 +82,8 @@
     )
     :effect (and 
         (decrease (agent-carrying-item ?a ?i) 1)
-        (increase(item-in-storage ?i ?s) 1)
+        (increase (item-in-storage ?i ?s) 1)
+        (increase (agent-capacity ?a) 1)
     )
 )
 
@@ -92,6 +94,7 @@
         (item-in-resourceNode ?i ?n)
         (agent-at-facility ?a ?n)
         (not (agent-busy ?a))
+        (>= (agent-capacity ?a) 1)
         (not (assembly-required-agent ?a item5))
         (not (assembly-required-agent ?a item6))
         (not (assembly-required-agent ?a item7))
@@ -101,6 +104,7 @@
     )
     :effect (and 
         (increase (agent-carrying-item ?a ?i) 1)
+        (decrease (agent-capacity ?a) 1)
     )
 )
 
@@ -258,6 +262,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item1) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item5))
         (assembly-item-consumed item1 item5)
         (not (item-arranged-for-assembly item1 item5))
@@ -276,6 +281,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item4) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item5))
         (assembly-item-consumed item4 item5)
         (not (item-arranged-for-assembly item4 item5))
@@ -324,6 +330,7 @@
     :effect (and 
         (not (assemble-main-guy ?a item5))
         (increase (agent-carrying-item ?a item5) 1)
+        (decrease (agent-capacity ?a) 1)
         (not (assembly-procedure-complete item5))
         (not (assembly-lock item5))
     )
@@ -525,6 +532,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item0) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item6))
         (assembly-item-consumed item0 item6)
         (not (item-arranged-for-assembly item0 item6))
@@ -543,6 +551,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item1) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item6))
         (assembly-item-consumed item1 item6)
         (not (item-arranged-for-assembly item1 item6))
@@ -561,6 +570,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item2) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item6))
         (assembly-item-consumed item2 item6)
         (not (item-arranged-for-assembly item2 item6))
@@ -579,6 +589,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item3) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item6))
         (assembly-item-consumed item3 item6)
         (not (item-arranged-for-assembly item3 item6))
@@ -597,6 +608,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item4) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item6))
         (assembly-item-consumed item4 item6)
         (not (item-arranged-for-assembly item4 item6))
@@ -651,6 +663,7 @@
     )
     :effect (and 
         (increase (agent-carrying-item ?a item6) 1)
+        (decrease (agent-capacity ?a) 1)
         (not (assemble-main-guy ?a item6))
         (not (assembly-procedure-complete item6))
         (not (assembly-lock item6))
@@ -853,6 +866,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item0) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item7))
         (assembly-item-consumed item0 item7)
         (not (item-arranged-for-assembly item0 item7))
@@ -871,6 +885,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item1) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item7))
         (assembly-item-consumed item1 item7)
         (not (item-arranged-for-assembly item1 item7))
@@ -889,6 +904,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item2) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item7))
         (assembly-item-consumed item2 item7)
         (not (item-arranged-for-assembly item2 item7))
@@ -907,6 +923,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item3) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item7))
         (assembly-item-consumed item3 item7)
         (not (item-arranged-for-assembly item3 item7))
@@ -925,6 +942,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item4) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item7))
         (assembly-item-consumed item4 item7)
         (not (item-arranged-for-assembly item4 item7))
@@ -979,6 +997,7 @@
     )
     :effect (and 
         (increase (agent-carrying-item ?a item7) 1)
+        (decrease (agent-capacity ?a) 1)
         (not (assemble-main-guy ?a item7))
         (not (assembly-procedure-complete item7))
         (not (assembly-lock item7))
@@ -1121,6 +1140,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item0) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item8))
         (assembly-item-consumed item0 item8)
         (not (item-arranged-for-assembly item0 item8))
@@ -1139,6 +1159,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item4) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item8))
         (assembly-item-consumed item4 item8)
         (not (item-arranged-for-assembly item4 item8))
@@ -1187,6 +1208,7 @@
     )
     :effect (and 
         (increase (agent-carrying-item ?a item8) 1)
+        (decrease (agent-capacity ?a) 1)
         (not (assemble-main-guy ?a item8))
         (not (assembly-procedure-complete item8))
         (not (assembly-lock item8))
@@ -1388,6 +1410,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item0) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item9))
         (assembly-item-consumed item0 item9)
         (not (item-arranged-for-assembly item0 item9))
@@ -1406,6 +1429,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item1) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item9))
         (assembly-item-consumed item1 item9)
         (not (item-arranged-for-assembly item1 item9))
@@ -1424,6 +1448,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item6) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item9))
         (assembly-item-consumed item6 item9)
         (not (item-arranged-for-assembly item6 item9))
@@ -1442,6 +1467,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item7) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item9))
         (assembly-item-consumed item7 item9)
         (not (item-arranged-for-assembly item7 item9))
@@ -1460,6 +1486,7 @@
     :effect (and 
         (not (agent-busy ?a))
         (decrease (agent-carrying-item ?a item4) 1)
+        (increase (agent-capacity ?a) 1)
         (not (agent-commited ?a item9))
         (assembly-item-consumed item4 item9)
         (not (item-arranged-for-assembly item4 item9))
@@ -1514,6 +1541,7 @@
     )
     :effect (and 
         (increase (agent-carrying-item ?a item9) 1)
+        (decrease (agent-capacity ?a) 1)
         (not (assemble-main-guy ?a item9))
         (not (assembly-procedure-complete item9))
         (not (assembly-lock item9))
