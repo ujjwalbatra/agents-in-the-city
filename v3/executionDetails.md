@@ -227,5 +227,4 @@ STEP 13:
 STEP 14:
 
     give(motorcycle2,truck1,item9,node4)
-                                             
 ```

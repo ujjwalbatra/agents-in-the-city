@@ -57,8 +57,8 @@
         (not (assembly-required-agent ?a2 item10))
     )
     :effect (and 
-    (not (agent-carrying-item ?a1 ?i))
-    (agent-carrying-item ?a2 ?i)
+        (not (agent-carrying-item ?a1 ?i))
+        (agent-carrying-item ?a2 ?i)
     )
 )
 
