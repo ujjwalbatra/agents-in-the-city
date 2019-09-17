@@ -85,6 +85,7 @@
     :effect (and 
         (not (agent-carrying-item ?a ?i))
         (item-in-storage ?i ?s)
+        (increase (total-cost) 1)
     )
 )
 
@@ -140,6 +141,7 @@
         (workshop-busy ?w)
         (workshop-allocated ?w item5)
         (assembly-lock item5)
+        (increase (total-cost) 1)
     )
 )
 
@@ -159,6 +161,7 @@
         (agent-providing-item-for-assembly ?a item1 item5)
         (agent-busy ?a)
         (agent-commited ?a item5)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -178,6 +181,7 @@
         (agent-providing-item-for-assembly ?a item4 item5)
         (agent-busy ?a)
         (agent-commited ?a item5) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -203,6 +207,7 @@
         (agent-commited ?d item5)
         (agent-busy ?c)
         (agent-busy ?d)
+        (increase (total-cost) 1)
     )
 )
 
@@ -219,6 +224,7 @@
     )
     :effect (and 
         (assembly-resources-acquired item5)
+        (increase (total-cost) 1)
     )
 )
 
@@ -234,6 +240,7 @@
     :effect (and 
         (item-assembled item5)  
         (assemble-main-guy ?c item5)
+        (increase (total-cost) 1)
     )
 )
 
@@ -250,6 +257,7 @@
     :effect (and 
         (item-assembled item5)    
         (assemble-main-guy ?d item5)
+        (increase (total-cost) 1)
     )
 )
 
@@ -268,6 +276,7 @@
         (assembly-item-consumed item1 item5)
         (not (item-arranged-for-assembly item1 item5))
         (not (agent-providing-item-for-assembly ?a item1 item5))
+        (increase (total-cost) 1)
     )
 )
 
@@ -286,6 +295,7 @@
         (assembly-item-consumed item4 item5)
         (not (item-arranged-for-assembly item4 item5))
         (not (agent-providing-item-for-assembly ?a item4 item5))
+        (increase (total-cost) 1)
     )
 )
 
@@ -317,6 +327,7 @@
         (not (assembly-resources-acquired item5)) 
 
         (assembly-procedure-complete item5)
+        (increase (total-cost) 1)
     )
 )
 
@@ -332,6 +343,7 @@
         (agent-carrying-item ?a item5)
         (not (assembly-procedure-complete item5))
         (not (assembly-lock item5))
+        (increase (total-cost) 1)
     )
 )
 
@@ -348,6 +360,7 @@
         (workshop-busy ?w)
         (workshop-allocated ?w item6)
         (assembly-lock item6)
+        (increase (total-cost) 1)
     )
 )
 
@@ -367,6 +380,7 @@
         (agent-providing-item-for-assembly ?a item0 item6)   
         (agent-busy ?a)
         (agent-commited ?a item6) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -386,6 +400,7 @@
         (agent-providing-item-for-assembly ?a item1 item6)
         (agent-busy ?a)
         (agent-commited ?a item6)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -404,7 +419,8 @@
         (item-arranged-for-assembly item2 item6)
         (agent-providing-item-for-assembly ?a item2 item6)
         (agent-busy ?a)
-        (agent-commited ?a item6)    
+        (agent-commited ?a item6)
+        (increase (total-cost) 1)    
     )
 )
 
@@ -424,6 +440,7 @@
         (agent-providing-item-for-assembly ?a item3 item6)
         (agent-busy ?a)
         (agent-commited ?a item6)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -443,6 +460,7 @@
         (agent-providing-item-for-assembly ?a item4 item6)
         (agent-busy ?a)
         (agent-commited ?a item6) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -468,6 +486,7 @@
         (agent-commited ?m item6)
         (agent-busy ?t)
         (agent-busy ?m)
+        (increase (total-cost) 1)
     )
 )
 
@@ -487,6 +506,7 @@
     )
     :effect (and 
         (assembly-resources-acquired item6)
+        (increase (total-cost) 1)
     )
 )
 
@@ -502,6 +522,7 @@
     :effect (and 
         (item-assembled item6)    
         (assemble-main-guy ?t item6)
+        (increase (total-cost) 1)
     )
 )
 
@@ -517,6 +538,7 @@
     :effect (and 
         (item-assembled item6)     
         (assemble-main-guy ?m item6)
+        (increase (total-cost) 1)
     )
 )
 
@@ -535,6 +557,7 @@
         (assembly-item-consumed item0 item6)
         (not (item-arranged-for-assembly item0 item6))
         (not (agent-providing-item-for-assembly ?a item0 item6))
+        (increase (total-cost) 1)
     )
 )
 
@@ -553,6 +576,7 @@
         (assembly-item-consumed item1 item6)
         (not (item-arranged-for-assembly item1 item6))
         (not (agent-providing-item-for-assembly ?a item1 item6))
+        (increase (total-cost) 1)
     )
 )
 
@@ -571,6 +595,7 @@
         (assembly-item-consumed item2 item6)
         (not (item-arranged-for-assembly item2 item6))
         (not (agent-providing-item-for-assembly ?a item2 item6))
+        (increase (total-cost) 1)
     )
 )
 
@@ -589,6 +614,7 @@
         (assembly-item-consumed item3 item6)
         (not (item-arranged-for-assembly item3 item6))
         (not (agent-providing-item-for-assembly ?a item3 item6))
+        (increase (total-cost) 1)
     )
 )
 
@@ -607,6 +633,7 @@
         (assembly-item-consumed item4 item6)
         (not (item-arranged-for-assembly item4 item6))
         (not (agent-providing-item-for-assembly ?a item4 item6))
+        (increase (total-cost) 1)
     )
 )
 
@@ -645,6 +672,7 @@
         (not (assembly-required-agent ?m item6))
 
         (assembly-procedure-complete item6)
+        (increase (total-cost) 1)
     )
 )
 
@@ -660,6 +688,7 @@
         (not (assemble-main-guy ?a item6))
         (not (assembly-procedure-complete item6))
         (not (assembly-lock item6))
+        (increase (total-cost) 1)
     )
 )
 
@@ -676,6 +705,7 @@
         (workshop-busy ?w)
         (workshop-allocated ?w item7)
         (assembly-lock item7)
+        (increase (total-cost) 1)
     )
 )
 
@@ -694,7 +724,8 @@
         (item-arranged-for-assembly item0 item7)
         (agent-providing-item-for-assembly ?a item0 item7)   
         (agent-busy ?a)
-        (agent-commited ?a item7) 
+        (agent-commited ?a item7)
+        (increase (total-cost) 1) 
     )
 )
 
@@ -714,6 +745,7 @@
         (agent-providing-item-for-assembly ?a item1 item7)
         (agent-busy ?a)
         (agent-commited ?a item7)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -733,6 +765,7 @@
         (agent-providing-item-for-assembly ?a item2 item7)
         (agent-busy ?a)
         (agent-commited ?a item7)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -752,6 +785,7 @@
         (agent-providing-item-for-assembly ?a item3 item7)
         (agent-busy ?a)
         (agent-commited ?a item7)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -771,6 +805,7 @@
         (agent-providing-item-for-assembly ?a item4 item7)
         (agent-busy ?a)
         (agent-commited ?a item7) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -796,6 +831,7 @@
         (agent-commited ?m item7)
         (agent-busy ?c)
         (agent-busy ?m)
+        (increase (total-cost) 1)
     )
 )
 
@@ -815,6 +851,7 @@
     )
     :effect (and 
         (assembly-resources-acquired item7)
+        (increase (total-cost) 1)
     )
 )
 
@@ -830,6 +867,7 @@
     :effect (and 
         (item-assembled item7)    
         (assemble-main-guy ?c item7)
+        (increase (total-cost) 1)
     )
 )
 
@@ -845,6 +883,7 @@
     :effect (and 
         (item-assembled item7)     
         (assemble-main-guy ?m item7)
+        (increase (total-cost) 1)
     )
 )
 
@@ -863,6 +902,7 @@
         (assembly-item-consumed item0 item7)
         (not (item-arranged-for-assembly item0 item7))
         (not (agent-providing-item-for-assembly ?a item0 item7))
+        (increase (total-cost) 1)
     )
 )
 
@@ -881,6 +921,7 @@
         (assembly-item-consumed item1 item7)
         (not (item-arranged-for-assembly item1 item7))
         (not (agent-providing-item-for-assembly ?a item1 item7))
+        (increase (total-cost) 1)
     )
 )
 
@@ -899,6 +940,7 @@
         (assembly-item-consumed item2 item7)
         (not (item-arranged-for-assembly item2 item7))
         (not (agent-providing-item-for-assembly ?a item2 item7))
+        (increase (total-cost) 1)
     )
 )
 
@@ -917,6 +959,7 @@
         (assembly-item-consumed item3 item7)
         (not (item-arranged-for-assembly item3 item7))
         (not (agent-providing-item-for-assembly ?a item3 item7))
+        (increase (total-cost) 1)
     )
 )
 
@@ -935,6 +978,7 @@
         (assembly-item-consumed item4 item7)
         (not (item-arranged-for-assembly item4 item7))
         (not (agent-providing-item-for-assembly ?a item4 item7))
+        (increase (total-cost) 1)
     )
 )
 
@@ -973,6 +1017,7 @@
         (not (assembly-required-agent ?m item7))
 
         (assembly-procedure-complete item7)
+        (increase (total-cost) 1)
     )
 )
 
@@ -988,6 +1033,7 @@
         (not (assemble-main-guy ?a item7))
         (not (assembly-procedure-complete item7))
         (not (assembly-lock item7))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1004,6 +1050,7 @@
         (workshop-busy ?w)
         (workshop-allocated ?w item8)
         (assembly-lock item8)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1023,6 +1070,7 @@
         (agent-providing-item-for-assembly ?a item0 item8)   
         (agent-busy ?a)
         (agent-commited ?a item8) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -1042,6 +1090,7 @@
         (agent-providing-item-for-assembly ?a item4 item8)
         (agent-busy ?a)
         (agent-commited ?a item8) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -1067,6 +1116,7 @@
         (agent-commited ?d item8)
         (agent-busy ?c)
         (agent-busy ?d)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1083,6 +1133,7 @@
     )
     :effect (and 
         (assembly-resources-acquired item8)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1098,6 +1149,7 @@
     :effect (and 
         (item-assembled item8)    
         (assemble-main-guy ?c item8)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1113,6 +1165,7 @@
     :effect (and 
         (item-assembled item8)     
         (assemble-main-guy ?d item8)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1131,6 +1184,7 @@
         (assembly-item-consumed item0 item8)
         (not (item-arranged-for-assembly item0 item8))
         (not (agent-providing-item-for-assembly ?a item0 item8))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1149,6 +1203,7 @@
         (assembly-item-consumed item4 item8)
         (not (item-arranged-for-assembly item4 item8))
         (not (agent-providing-item-for-assembly ?a item4 item8))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1181,6 +1236,7 @@
         (not (assembly-required-agent ?d item8))
 
         (assembly-procedure-complete item8)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1196,6 +1252,7 @@
         (not (assemble-main-guy ?a item8))
         (not (assembly-procedure-complete item8))
         (not (assembly-lock item8))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1211,6 +1268,7 @@
         (workshop-busy ?w)
         (workshop-allocated ?w item9)
         (assembly-lock item9)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1230,6 +1288,7 @@
         (agent-providing-item-for-assembly ?a item0 item9)   
         (agent-busy ?a)
         (agent-commited ?a item9) 
+        (increase (total-cost) 1)
     )
 )
 
@@ -1248,7 +1307,8 @@
         (item-arranged-for-assembly item1 item9)
         (agent-providing-item-for-assembly ?a item1 item9)
         (agent-busy ?a)
-        (agent-commited ?a item9)    
+        (agent-commited ?a item9)
+        (increase (total-cost) 1)    
     )
 )
 
@@ -1268,6 +1328,7 @@
         (agent-providing-item-for-assembly ?a item6 item9)
         (agent-busy ?a)
         (agent-commited ?a item9)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -1287,6 +1348,7 @@
         (agent-providing-item-for-assembly ?a item7 item9)
         (agent-busy ?a)
         (agent-commited ?a item9)    
+        (increase (total-cost) 1)
     )
 )
 
@@ -1305,7 +1367,8 @@
         (item-arranged-for-assembly item4 item9)
         (agent-providing-item-for-assembly ?a item4 item9)
         (agent-busy ?a)
-        (agent-commited ?a item9) 
+        (agent-commited ?a item9)
+        (increase (total-cost) 1) 
     )
 )
 
@@ -1331,6 +1394,7 @@
         (agent-commited ?m item9)
         (agent-busy ?t)
         (agent-busy ?m)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1350,6 +1414,7 @@
     )
     :effect (and 
         (assembly-resources-acquired item9)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1365,6 +1430,7 @@
     :effect (and 
         (item-assembled item9)    
         (assemble-main-guy ?t item9)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1380,6 +1446,7 @@
     :effect (and 
         (item-assembled item9)     
         (assemble-main-guy ?m item9)
+        (increase (total-cost) 1)
     )
 )
 
@@ -1398,6 +1465,7 @@
         (assembly-item-consumed item0 item9)
         (not (item-arranged-for-assembly item0 item9))
         (not (agent-providing-item-for-assembly ?a item0 item9))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1416,6 +1484,7 @@
         (assembly-item-consumed item1 item9)
         (not (item-arranged-for-assembly item1 item9))
         (not (agent-providing-item-for-assembly ?a item1 item9))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1434,6 +1503,7 @@
         (assembly-item-consumed item6 item9)
         (not (item-arranged-for-assembly item6 item9))
         (not (agent-providing-item-for-assembly ?a item6 item9))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1452,6 +1522,7 @@
         (assembly-item-consumed item7 item9)
         (not (item-arranged-for-assembly item7 item9))
         (not (agent-providing-item-for-assembly ?a item7 item9))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1470,6 +1541,7 @@
         (assembly-item-consumed item4 item9)
         (not (item-arranged-for-assembly item4 item9))
         (not (agent-providing-item-for-assembly ?a item4 item9))
+        (increase (total-cost) 1)
     )
 )
 
@@ -1508,6 +1580,7 @@
         (not (assembly-required-agent ?m item9))
 
         (assembly-procedure-complete item9)
+        (increase (total-cost) 1)
     )
 )
 
