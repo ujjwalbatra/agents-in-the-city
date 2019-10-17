@@ -151,11 +151,11 @@ STEP 5.1:
 STEP 6.0:
 
 
-    gather(truck3,item4,node10) 
-    give(drone2,truck1,item1,workshop2) 
+    gather(truck3,item4,node10)
+    give(drone2,truck1,item1,workshop2)
     give(motorcycle4,drone2,item0,workshop2)
-    goto(drone1,workshop2,node4) 
-    post_assemble_i6_freeup_everything(truck4,motorcycle2,workshop0) 
+    goto(drone1,workshop2,node4)
+    post_assemble_i6_freeup_everything(truck4,motorcycle2,workshop0)
     post_assemble_i7_freeup_everything(car3,motorcycle3,workshop2)
 
 

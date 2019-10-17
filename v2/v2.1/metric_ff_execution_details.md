@@ -1,99 +1,20 @@
 ## Execution details on Metric-FF
 
 ```
-ff: parsing domain file
-domain 'AGENTS-IN-THE-CITY' defined
- ... done.
-ff: parsing problem file
-problem 'COMPLETE-JOBS' defined
- ... done.
-
-
-
-no optimization required. skipping criterion.
-
-
-no metric specified. plan length assumed.
-
-checking for cyclic := effects --- OK.
-
-ff: search configuration is EHC, if that fails then  best-first on 1*g(s) + 5*h(s) where
-    metric is  plan length
-
-Cueing down from goal distance:   63 into depth [1]
-                                  62            [1]
-                                  61            [1]
-                                  60            [1]
-                                  59            [1]
-                                  58            [1]
-                                  57            [1]
-                                  56            [1]
-                                  55            [1]
-                                  54            [1]
-                                  53            [1]
-                                  52            [1]
-                                  51            [1]
-                                  50            [1]
-                                  49            [1][2][3][4]
-                                  48            [1][2][3]
-                                  47            [1]
-                                  46            [1][2][3][4][5][6][7][8]
-                                  41            [1]
-                                  40            [1]
-                                  39            [1]
-                                  38            [1]
-                                  37            [1]
-                                  36            [1]
-                                  35            [1]
-                                  34            [1]
-                                  33            [1]
-                                  32            [1][2][3][4]
-                                  31            [1][2][3][4]
-                                  30            [1][2][3][4]
-                                  29            [1][2][3]
-                                  28            [1]
-                                  27            [1]
-                                  26            [1][2]
-                                  25            [1]
-                                  24            [1][2][3]
-                                  23            [1]
-                                  22            [1]
-                                  21            [1]
-                                  20            [1]
-                                  19            [1]
-                                  18            [1]
-                                  17            [1]
-                                  16            [1][2][3]
-                                  15            [1][2][3]
-                                  14            [1][2][3]
-                                  13            [1]
-                                  12            [1]
-                                  11            [1]
-                                  10            [1]
-                                   9            [1]
-                                   8            [1]
-                                   7            [1]
-                                   6            [1]
-                                   5            [1]
-                                   4            [1]
-                                   3            [1]
-                                   2            [1]
-                                   1            [1]
-                                   0
-
 time spent:    0.03 seconds instantiating 173455 easy, 5384 hard action templates
                0.06 seconds reachability analysis, yielding 1923 facts and 62697 actions
-               0.04 seconds creating final representation with 1356 relevant facts, 1 relevant fluents
+               0.02 seconds creating final representation with 1356 relevant facts, 0 relevant fluents
                0.12 seconds computing LNF
-               1.17 seconds building connectivity graph
-             457.62 seconds searching, evaluating 13865 states, to a max depth of 8
-             459.04 seconds total time
+               0.05 seconds building connectivity graph
+             194.90 seconds searching, evaluating 13865 states, to a max depth of 8
+             195.18 seconds total time
 ```
 
 ## Plan found on MEtric-FF
 
 ```
 ff: found legal plan as follows
+
 
 step    0: GOTO CAR4 STORAGE3 NODE1
         1: GOTO TRUCK4 STORAGE3 WORKSHOP3
@@ -115,7 +36,7 @@ step    0: GOTO CAR4 STORAGE3 NODE1
        17: GOTO MOTORCYCLE3 STORAGE2 WORKSHOP2
        18: PREP_ASSEMBLE_ITEM6_FINALISE_WORKSHOP WORKSHOP2
        19: PREP_ASSEMBLE_ITEM7_FINALISE_WORKSHOP WORKSHOP1
-FD planner generalises the problem to several levels of abstraction forming an ab- straction hierarchy, with a very abstract level at the top where almost all precondi- tions are ignored, successively introducing more preconditions at every layer until the final layer of the hierarchy equals the original planning task (Helmert, 2006).       20: PREP_ASSEMBLE_ITEM6_ARRANGE_ROLES TRUCK4 MOTORCYCLE3 WORKSHOP2
+       20: PREP_ASSEMBLE_ITEM6_ARRANGE_ROLES TRUCK4 MOTORCYCLE3 WORKSHOP2
        21: GOTO MOTORCYCLE2 STORAGE1 WORKSHOP1
        22: GOTO CAR4 WORKSHOP3 WORKSHOP2
        23: PREP_ASSEMBLE_ITEM6_ARRANGE_ITEM0 CAR4 WORKSHOP2
